@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/weefl/Downloads/denizen-1.0.2-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="C:/Users/weefl/Downloads/Citizens.jar"/>
+	<classpathentry kind="lib" path="C:/Users/weefl/Downloads/spigot-1.12.2-R0.1-SNAPSHOT-b1648.jar"/>
+	<classpathentry kind="lib" path="C:/Users/weefl/Downloads/dynmap-2.6-beta-1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

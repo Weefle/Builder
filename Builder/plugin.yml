@@ -1,0 +1,29 @@
+name: Builder
+authors: [jrbudda, Weefle]
+version: 1.0.0
+main: net.jrbudda.builder.Builder
+depends: [Citizens]
+softdepends: [Denizen, dynmap]
+commands:
+  builder:
+    description: Lists builder commands.
+    usage: /builder help
+permissions:
+  builder.*:
+    default: op
+    children:
+      builder.load: true
+      builder.cancel: true
+      builder.build: true
+      builder.mark: true
+      builder.origin: true
+      builder.check: true
+      builder.compare: true
+      builder.info: true
+      builder.survey: true
+      builder.timeout: true
+      builder.ignoreprotection: true
+      builder.list: true
+      builder.hold: true
+      builder.supply: true
+      builder.donate: true
