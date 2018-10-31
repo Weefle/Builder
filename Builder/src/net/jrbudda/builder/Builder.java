@@ -816,6 +816,7 @@ public class Builder extends JavaPlugin {
 	}
 	
 	public void loadSchematic() {
+		if(!(new File(this.getDataFolder() + File.separator + "schematics/house.schematic").exists()))
 		saveResource("schematics/house.schematic", false);
 	}
 
