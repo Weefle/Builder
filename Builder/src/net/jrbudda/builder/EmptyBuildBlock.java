@@ -1,8 +1,12 @@
 package net.jrbudda.builder;
 
+import java.util.EnumSet;
 import java.util.Map;
 
 import net.citizensnpcs.api.jnbt.Tag;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.material.MaterialData;
 
 //Todo, add extended data.
@@ -28,13 +32,20 @@ class DataBuildBlock extends EmptyBuildBlock{
 		this.X = x;
 		this.Y = y;
 		this.Z = z;
-		this.mat = new MaterialData(id,data);
+		//this.mat = new MaterialData(id,data);
+		this.mat = convertMaterial(id, data).getNewData(data);
 	}
 	
 	@Override
 	public MaterialData getMat(){
 		return mat;
 	}
+	
+	public static Material convertMaterial(int id, byte data) {
+		for(Material i : EnumSet.allOf(Material.class)) if(Material.values()[id] == i) return Bukkit.getUnsafe().fromLegacy(new MaterialData(i, data));
+		return null;
+	}
+	
 }
 
 class TileBuildBlock extends DataBuildBlock{
@@ -44,5 +55,6 @@ class TileBuildBlock extends DataBuildBlock{
 	}
 
 	public  Map<String, Tag> tiles = null;
+	
 }
 

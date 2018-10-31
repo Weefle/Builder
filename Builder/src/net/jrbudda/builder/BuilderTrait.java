@@ -13,16 +13,16 @@ import net.citizensnpcs.api.jnbt.CompoundTag;
 import net.citizensnpcs.api.trait.Trait;
 import net.citizensnpcs.api.util.DataKey;
 import net.citizensnpcs.trait.Toggleable;
-import net.minecraft.server.v1_12_R1.BlockPosition;
-import net.minecraft.server.v1_12_R1.NBTTagCompound;
-import net.minecraft.server.v1_12_R1.TileEntity;
+import net.minecraft.server.v1_13_R2.BlockPosition;
+import net.minecraft.server.v1_13_R2.NBTTagCompound;
+import net.minecraft.server.v1_13_R2.TileEntity;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_12_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_13_R2.CraftWorld;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
@@ -458,9 +458,9 @@ public class BuilderTrait extends Trait implements Toggleable {
 				ok= true;
 
 				//dont replace grass with dirt, and vice versa.
-				if (pending.getTypeId() == 3 && next.getMat().getItemTypeId() ==2) ok = false;
-				if (pending.getTypeId() == 2 && next.getMat().getItemTypeId() ==3) ok = false;
-				if (pending.getTypeId() == next.getMat().getItemTypeId() && pending.getData() == next.getMat().getData()) ok =false;
+				if (pending.getType().getId() == 3 && next.getMat().getItemType().getId() ==2) ok = false;
+				if (pending.getType().getId() == 2 && next.getMat().getItemType().getId() ==3) ok = false;
+				if (pending.getType().getId() == next.getMat().getItemType().getId() && pending.getData() == next.getMat().getData()) ok =false;
 				//dont bother putting a block that already exists.
 
 			} while(!ok);
@@ -479,11 +479,13 @@ public class BuilderTrait extends Trait implements Toggleable {
 		if(npc.isSpawned()){
 
 			if((npc.getEntity() instanceof org.bukkit.entity.HumanEntity || npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems){
-				int m = next.getMat().getItemTypeId();
+				int m = next.getMat().getItemType().getId();
 				if (m <=0) m = 278;
 
-				if((npc.getEntity() instanceof org.bukkit.entity.HumanEntity) && this.HoldItems)((org.bukkit.entity.HumanEntity) npc.getEntity()).getInventory().setItemInHand(new ItemStack(m));	
-				else if((npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems)	((org.bukkit.entity.Enderman) npc.getEntity()).setCarriedMaterial(new MaterialData(m));
+				/*if((npc.getEntity() instanceof org.bukkit.entity.HumanEntity) && this.HoldItems)((org.bukkit.entity.HumanEntity) npc.getEntity()).getInventory().setItemInHand(new ItemStack(m));	
+				else if((npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems)	((org.bukkit.entity.Enderman) npc.getEntity()).setCarriedMaterial(new MaterialData(m));*/
+				if((npc.getEntity() instanceof org.bukkit.entity.HumanEntity) && this.HoldItems)((org.bukkit.entity.HumanEntity) npc.getEntity()).getInventory().setItemInHand(new ItemStack(DataBuildBlock.convertMaterial(m, (byte)0)));	
+				else if((npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems)	((org.bukkit.entity.Enderman) npc.getEntity()).setCarriedMaterial(DataBuildBlock.convertMaterial(m, (byte)0).getNewData((byte)0));
 			}
 		}
 
@@ -566,8 +568,10 @@ public class BuilderTrait extends Trait implements Toggleable {
 		}
 
 
-		if((npc.getEntity() instanceof org.bukkit.entity.HumanEntity) && this.HoldItems)((org.bukkit.entity.HumanEntity) npc.getEntity()).getInventory().setItemInHand(new ItemStack(0));	
-		else if((npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems)	((org.bukkit.entity.Enderman) npc.getEntity()).setCarriedMaterial(new MaterialData(0));
+		/*if((npc.getEntity() instanceof org.bukkit.entity.HumanEntity) && this.HoldItems)((org.bukkit.entity.HumanEntity) npc.getEntity()).getInventory().setItemInHand(new ItemStack(0));	
+		else if((npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems)	((org.bukkit.entity.Enderman) npc.getEntity()).setCarriedMaterial(new MaterialData(0));*/
+		if((npc.getEntity() instanceof org.bukkit.entity.HumanEntity) && this.HoldItems)((org.bukkit.entity.HumanEntity) npc.getEntity()).getInventory().setItemInHand(new ItemStack(DataBuildBlock.convertMaterial(0, (byte)0)));	
+		else if((npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems)	((org.bukkit.entity.Enderman) npc.getEntity()).setCarriedMaterial(DataBuildBlock.convertMaterial(0, (byte)0).getNewData((byte)0));
 
 		if (stop && plugin.getServer().getPluginManager().getPlugin("dynmap") != null){
 			if (plugin.getServer().getPluginManager().getPlugin("dynmap").isEnabled()) {
@@ -592,10 +596,10 @@ public class BuilderTrait extends Trait implements Toggleable {
 		if(pending != null && next != null) {
 
 			if(State==BuilderState.marking && !clearingMarks) {
-				_marks.add(new DataBuildBlock(pending.getX(), pending.getY(), pending.getZ(), pending.getTypeId(), pending.getData()));
+				_marks.add(new DataBuildBlock(pending.getX(), pending.getY(), pending.getZ(), pending.getType().getId(), pending.getData()));
 			}
 
-			pending.setTypeIdAndData(next.getMat().getItemTypeId(), next.getMat().getData(), false);
+			pending.setType(DataBuildBlock.convertMaterial(next.getMat().getItemType().getId(), next.getMat().getData()), false);
 
 			if (next instanceof TileBuildBlock){			
 				//lol what

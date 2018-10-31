@@ -1,6 +1,5 @@
 package net.jrbudda.builder;
 
-//import java.util.HashMap;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,8 +15,11 @@ import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.trait.TraitInfo;
 import net.citizensnpcs.api.trait.trait.Owner;
-import net.minecraft.server.v1_12_R1.Block;
-import net.minecraft.server.v1_12_R1.Item;
+import net.minecraft.server.v1_13_R2.Block;
+import net.minecraft.server.v1_13_R2.BlockPosition;
+import net.minecraft.server.v1_13_R2.IBlockData;
+import net.minecraft.server.v1_13_R2.Item;
+import net.minecraft.server.v1_13_R2.World;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -113,8 +115,7 @@ public class Builder extends JavaPlugin {
 			if (denizen.isEnabled()) {
 				String vers = denizen.getDescription().getVersion();
 				if(vers.startsWith("0.7")) {
-					//	net.aufdemrand.sentry.denizen.v7.Util.setupDenizenHook(DieLikePlayers);
-					getLogger().log(Level.WARNING, "Builder is no longer compatible with Denizen .7");
+					getLogger().log(Level.WARNING, "Builder is no longer compatible with Denizen 0.7");
 					denizen =null;
 				}
 				else if(vers.startsWith("0.8") || vers.startsWith("0.9")){
@@ -261,7 +262,7 @@ public class Builder extends JavaPlugin {
 			StringBuilder sb = new StringBuilder();
 
 			for (int j = 1; j < 137; j++) {
-				sb.append( j+":"+ Util.getLocalItemName(j) +" > " +  (net.minecraft.server.v1_12_R1.Block.getById(j).getDropType(Block.getById(j).getBlockData(), Util.R,-10000)) +":" + Util.getLocalItemName(Item.getId(Block.getById(j).getDropType(Block.getById(j).getBlockData(), Util.R, -10000)))+ "\n" );
+				sb.append( j+":"+ Util.getLocalItemName(j) +" > " +  (Block.getByCombinedId(j).getBlock().getDropType(Block.getByCombinedId(j).getBlock().getBlockData(), (World) Bukkit.getWorlds().get(0), BlockPosition.ZERO,-10000)) +":" + Util.getLocalItemName(Item.getId(Block.getByCombinedId(j).getBlock().getDropType(Block.getByCombinedId(j).getBlock().getBlockData(), (World) Bukkit.getWorlds().get(0), BlockPosition.ZERO,-10000).getItem()))+ "\n" );
 			}
 
 			java.io.File f = new File("mats.txt");
