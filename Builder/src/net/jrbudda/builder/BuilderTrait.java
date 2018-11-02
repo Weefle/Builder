@@ -485,7 +485,7 @@ public class BuilderTrait extends Trait implements Toggleable {
 				/*if((npc.getEntity() instanceof org.bukkit.entity.HumanEntity) && this.HoldItems)((org.bukkit.entity.HumanEntity) npc.getEntity()).getInventory().setItemInHand(new ItemStack(m));	
 				else if((npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems)	((org.bukkit.entity.Enderman) npc.getEntity()).setCarriedMaterial(new MaterialData(m));*/
 				if((npc.getEntity() instanceof org.bukkit.entity.HumanEntity) && this.HoldItems)((org.bukkit.entity.HumanEntity) npc.getEntity()).getInventory().setItemInHand(new ItemStack(DataBuildBlock.convertMaterial(m, (byte)0)));	
-				else if((npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems)	((org.bukkit.entity.Enderman) npc.getEntity()).setCarriedMaterial(DataBuildBlock.convertMaterial(m, (byte)0).getNewData((byte)0));
+				else if((npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems)	((org.bukkit.entity.Enderman) npc.getEntity()).setCarriedMaterial(new MaterialData(DataBuildBlock.convertMaterial(m, (byte)0)));
 			}
 		}
 
@@ -571,7 +571,7 @@ public class BuilderTrait extends Trait implements Toggleable {
 		/*if((npc.getEntity() instanceof org.bukkit.entity.HumanEntity) && this.HoldItems)((org.bukkit.entity.HumanEntity) npc.getEntity()).getInventory().setItemInHand(new ItemStack(0));	
 		else if((npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems)	((org.bukkit.entity.Enderman) npc.getEntity()).setCarriedMaterial(new MaterialData(0));*/
 		if((npc.getEntity() instanceof org.bukkit.entity.HumanEntity) && this.HoldItems)((org.bukkit.entity.HumanEntity) npc.getEntity()).getInventory().setItemInHand(new ItemStack(DataBuildBlock.convertMaterial(0, (byte)0)));	
-		else if((npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems)	((org.bukkit.entity.Enderman) npc.getEntity()).setCarriedMaterial(DataBuildBlock.convertMaterial(0, (byte)0).getNewData((byte)0));
+		else if((npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems)	((org.bukkit.entity.Enderman) npc.getEntity()).setCarriedMaterial(new  MaterialData(DataBuildBlock.convertMaterial(0, (byte)0)));
 
 		if (stop && plugin.getServer().getPluginManager().getPlugin("dynmap") != null){
 			if (plugin.getServer().getPluginManager().getPlugin("dynmap").isEnabled()) {

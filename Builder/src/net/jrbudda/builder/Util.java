@@ -47,7 +47,7 @@ import org.bukkit.material.MaterialData;
 public class Util {
 
 	//static MaterialData Air = new MaterialData(0,(byte) 0);
-	static MaterialData Air = DataBuildBlock.convertMaterial(0, (byte)0).getNewData((byte)0);
+	static MaterialData Air = new MaterialData(DataBuildBlock.convertMaterial(0, (byte)0));
 	
 	public static String printList(Map<Integer, Double> map){
 		StringBuilder sb = new StringBuilder();

@@ -2,9 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/weefl/Downloads/denizen-1.0.2-r6-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="C:/Users/weefl/Downloads/citizens-2.0.24-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="C:/Users/weefl/Downloads/spigot-latest (1).jar"/>
-	<classpathentry kind="lib" path="C:/Users/weefl/Downloads/Dynmap-3.0-beta-1-spigot.jar"/>
+	<classpathentry kind="lib" path="C:/Users/weefl/Downloads/Denizen-1.0.3-b448-DEV.jar"/>
+	<classpathentry kind="lib" path="C:/Users/weefl/Downloads/Citizens-2.0.24-b1590.jar"/>
+	<classpathentry kind="lib" path="C:/Users/weefl/Downloads/Paper-latest.jar"/>
+	<classpathentry kind="lib" path="C:/Users/weefl/Downloads/Dynmap-3.0-beta-2-spigot.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

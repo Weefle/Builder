@@ -3,6 +3,8 @@ package net.jrbudda.builder;
 import java.util.EnumSet;
 import java.util.Map;
 
+import net.aufdemrand.denizen.objects.dMaterial;
+import net.aufdemrand.denizen.utilities.DenizenAPI;
 import net.citizensnpcs.api.jnbt.Tag;
 
 import org.bukkit.Bukkit;
@@ -33,7 +35,7 @@ class DataBuildBlock extends EmptyBuildBlock{
 		this.Y = y;
 		this.Z = z;
 		//this.mat = new MaterialData(id,data);
-		this.mat = convertMaterial(id, data).getNewData(data);
+		this.mat = new MaterialData(convertMaterial(id, data));
 	}
 	
 	@Override
