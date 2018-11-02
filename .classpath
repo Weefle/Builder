@@ -2,11 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Minecraft/dynmap-api.jar"/>
-	<classpathentry kind="lib" path="C:/Minecraft/1.6/bukkit-1.6.1-R0.1-20130703.062218-3.jar"/>
-	<classpathentry kind="lib" path="C:/Minecraft/1.6/citizens-2.0.9-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="C:/Minecraft/1.6/citizensapi-2.0.9-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="C:/Minecraft/1.6/craftbukkit-1.6.1-R0.1-20130703.085909-10.jar"/>
-	<classpathentry kind="lib" path="C:/Minecraft/1.6/denizen-0.9.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="C:/Users/weefl/Downloads/Citizens (1).jar"/>
+	<classpathentry kind="lib" path="C:/Users/weefl/Downloads/denizen-1.0.2-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="C:/Users/weefl/Downloads/dynmap-2.6-beta-1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/weefl/Downloads/spigot-1.12.2-R0.1-SNAPSHOT-b1648.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
