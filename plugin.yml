@@ -1,11 +1,9 @@
 name: Builder
-author: jrbudda
-version: 0.7.1
+authors: [jrbudda, Weefle]
+version: 1.0.1
 main: net.jrbudda.builder.Builder
-depend:
-  - Citizens
-softdepend:
-  - Denizen
+depends: [Citizens]
+softdepends: [Denizen, dynmap]
 commands:
   builder:
     description: Lists builder commands.

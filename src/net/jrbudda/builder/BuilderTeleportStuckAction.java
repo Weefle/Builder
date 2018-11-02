@@ -13,8 +13,7 @@ public class BuilderTeleportStuckAction implements StuckAction{
 		if (!npc.isSpawned())
 			return false;
 		Location base = navigator.getTargetAsLocation();
-		npc.getBukkitEntity().teleport(base);
-		// 	inst.plugin.getServer().broadcastMessage("bgtp stuck action");
+		npc.getEntity().teleport(base);
 		return false;
 	}
 
