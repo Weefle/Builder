@@ -495,7 +495,7 @@ public class BuilderTrait extends Trait implements Toggleable {
 					npc.getNavigator().getLocalParameters().stationaryTicks((int) (MoveTimeout*20));
 					npc.getNavigator().getLocalParameters().stuckAction(BuilderTeleportStuckAction.INSTANCE);
 					npc.getNavigator().setPaused(false);
-					npc.getNavigator().getPathStrategy().update();
+					//npc.getNavigator().getPathStrategy().update();
 				}	
 			}
 		});
