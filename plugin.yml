@@ -1,10 +1,10 @@
 name: Builder
 authors: [jrbudda, Weefle]
-version: 1.0.2
+version: 2.0
 main: net.jrbudda.builder.Builder
 depends: [Citizens]
 softdepends: [Denizen, dynmap]
-api-version: 1.13
+#api-version: 1.13
 commands:
   builder:
     description: Lists builder commands.

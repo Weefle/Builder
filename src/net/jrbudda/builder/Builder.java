@@ -111,19 +111,6 @@ public class Builder extends JavaPlugin {
 
 	private void setupDenizenHook() throws ActivationException {
 		denizen = this.getServer().getPluginManager().getPlugin("Denizen");
-		if (denizen != null) {
-			if (denizen.isEnabled()) {
-				String vers = denizen.getDescription().getVersion();
-				if(vers.startsWith("0.7")) {
-					getLogger().log(Level.WARNING, "Builder is no longer compatible with Denizen 0.7");
-					denizen =null;
-				}
-				else if(vers.startsWith("0.8") || vers.startsWith("0.9")){
-					//ok
-				}
-			}
-			else denizen =null;
-		}
 	}
 
 
