@@ -8,20 +8,47 @@ import java.util.Queue;
 import java.util.Map.Entry;
 import java.util.Random;
 
+import net.citizensnpcs.api.jnbt.ByteArrayTag;
+import net.citizensnpcs.api.jnbt.ByteTag;
+import net.citizensnpcs.api.jnbt.CompoundTag;
+import net.citizensnpcs.api.jnbt.DoubleTag;
+import net.citizensnpcs.api.jnbt.EndTag;
+import net.citizensnpcs.api.jnbt.FloatTag;
+import net.citizensnpcs.api.jnbt.IntArrayTag;
+import net.citizensnpcs.api.jnbt.IntTag;
+import net.citizensnpcs.api.jnbt.ListTag;
+import net.citizensnpcs.api.jnbt.LongTag;
+import net.citizensnpcs.api.jnbt.ShortTag;
+import net.citizensnpcs.api.jnbt.StringTag;
+import net.citizensnpcs.api.jnbt.Tag;
 import net.jrbudda.builder.Builder.supplymap;
-////
-import net.minecraft.server.v1_6_R1.Block;
-import net.minecraft.server.v1_6_R1.Item;
-import net.minecraft.server.v1_6_R1.LocaleI18n;
-////
+import net.minecraft.server.v1_13_R2.Block;
+import net.minecraft.server.v1_13_R2.BlockPosition;
+import net.minecraft.server.v1_13_R2.Item;
+import net.minecraft.server.v1_13_R2.NBTBase;
+import net.minecraft.server.v1_13_R2.NBTTagByte;
+import net.minecraft.server.v1_13_R2.NBTTagByteArray;
+import net.minecraft.server.v1_13_R2.NBTTagCompound;
+import net.minecraft.server.v1_13_R2.NBTTagDouble;
+import net.minecraft.server.v1_13_R2.NBTTagFloat;
+import net.minecraft.server.v1_13_R2.NBTTagInt;
+import net.minecraft.server.v1_13_R2.NBTTagIntArray;
+import net.minecraft.server.v1_13_R2.NBTTagList;
+import net.minecraft.server.v1_13_R2.NBTTagLong;
+import net.minecraft.server.v1_13_R2.NBTTagShort;
+import net.minecraft.server.v1_13_R2.NBTTagString;
+import net.minecraft.server.v1_13_R2.World;
 
-
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.material.MaterialData;
 
 
 public class Util {
 
-
+	//static MaterialData Air = new MaterialData(0,(byte) 0);
+	static MaterialData Air = new MaterialData(DataBuildBlock.convertMaterial(0, (byte)0));
+	
 	public static String printList(Map<Integer, Double> map){
 		StringBuilder sb = new StringBuilder();
 
@@ -42,16 +69,20 @@ public class Util {
 		try {
 			if (MatId==0) return  "Air";
 			if(MatId < 256){
-				Block b =Block.byId[MatId];
+				Block b =Block.getByCombinedId(MatId).getBlock();
+				if ( MatId == 3)  return LocaleI18n.get("tile.dirt.default.name");
+				if ( MatId == 12)  return LocaleI18n.get("tile.sand.default.name");
+				if ( MatId == 37)  return LocaleI18n.get("tile.flower1.dandelion.name");
+				if ( MatId == 38)  return LocaleI18n.get("tile.flower2.poppy.name");
 				if ( MatId == 6)  return LocaleI18n.get("tile.sapling.oak.name");
 				if ( MatId == 21)  return LocaleI18n.get("item.dyePowder.blue.name");
 				if ( MatId == 44)  return LocaleI18n.get("tile.stoneSlab.stone.name");
 				if ( MatId == 126)  return LocaleI18n.get("tile.stoneSlab.wood.name");
 				if ( MatId == 126)  return LocaleI18n.get("tile.stoneSlab.wood.name");
-				return	b.getName();
+				return	b.getItem().getName();
 			}
 			else{
-				Item b =Item.byId[MatId];
+				Item b =Item.getById(MatId);
 				return LocaleI18n.get(b.getName() + ".name");
 			}
 		} catch (Exception e) {
@@ -59,7 +90,7 @@ public class Util {
 		}
 	}
 
-	public static List<BuildBlock> spiralPrintLayer(int starty,int ylayers, BuildBlock[][][] a, boolean reverse)
+	public static List<EmptyBuildBlock> spiralPrintLayer(int starty,int ylayers, EmptyBuildBlock[][][] a, boolean reverse)
 	{
 		int i, k = 0, l = 0;
 
@@ -67,7 +98,7 @@ public class Util {
 		int n = a[0].length;
 		int o = a[0][0].length;
 
-		List<BuildBlock> out = new ArrayList<BuildBlock>();
+		List<EmptyBuildBlock> out = new ArrayList<EmptyBuildBlock>();
 
 		/*  k - starting row index
 	        m - ending row index
@@ -167,7 +198,7 @@ public class Util {
 
 
 
-	public static List<BuildBlock> LinearPrintLayer(int starty,int ylayers, BuildBlock[][][] a, boolean reverse)
+	public static List<EmptyBuildBlock> LinearPrintLayer(int starty,int ylayers, EmptyBuildBlock[][][] a, boolean reverse)
 	{
 		int i = 0,k = 0;
 		int di = 1;
@@ -177,7 +208,7 @@ public class Util {
 		int n = a[0].length;
 		int o = a[0][0].length;
 
-		List<BuildBlock> out = new ArrayList<BuildBlock>();
+		List<EmptyBuildBlock> out = new ArrayList<EmptyBuildBlock>();
 
 		/*  k - starting row index
 	        m - ending row index
@@ -217,18 +248,16 @@ public class Util {
 		return out;
 	}
 
-	static Random R = new java.util.Random();
-
-	public static Map<Integer, Double> MaterialsList(Queue<BuildBlock> Q) throws Exception{
+	public static Map<Integer, Double> MaterialsList(Queue<EmptyBuildBlock> Q) throws Exception{
 
 		Map<Integer, Double> out = new HashMap<Integer, Double>();
 
 		do{
 
-			BuildBlock b = Q.poll();
+			EmptyBuildBlock b = Q.poll();
 
 			if (b==null) break;
-			int item = b.mat.getItemTypeId();
+			int item = b.getMat().getItemType().getId();
 			double addamt = 1;
 
 			
@@ -238,10 +267,10 @@ public class Util {
 				addamt = i.amount;				
 			}		
 			else{
-				item =Block.byId[item] !=null ? Block.byId[item].getDropType(b.mat.getData(), R,-10000) : item;
+				
+				item =(Integer) (Block.getByCombinedId(item) !=null ? Item.getId(Block.getByCombinedId(item).getBlock().getDropType(Block.getByCombinedId(item).getBlock().getBlockData(), (World) Bukkit.getWorlds().get(0), BlockPosition.ZERO,-10000).getItem()) : item);
 			}
 			
-
 //			if (RequireUnobtainable){
 //				switch (item){
 //				case 0:
@@ -356,12 +385,58 @@ public class Util {
 
 	static boolean canStand(org.bukkit.block.Block base){
 		org.bukkit.block.Block below = base.getRelative(0, -1, 0);
-		if(!below.isEmpty() && Block.byId[below.getTypeId()].material.isSolid()){
-			if(base.isEmpty() || Block.byId[base.getTypeId()].material.isSolid()==false){
+		if(!below.isEmpty() && Block.getByCombinedId(below.getType().getId()).getBlock().getBlockData().getMaterial().isSolid()){
+			if(base.isEmpty() || Block.getByCombinedId(base.getType().getId()).getBlock().getBlockData().getMaterial().isSolid()==false){
 				return true;
 			}
 		}
 		return false;
 	}
 
+	//all credit to sk89q
+    public static NBTBase fromNative(Tag foreign) {
+        if (foreign == null) {
+            return null;
+        }
+        if (foreign instanceof CompoundTag) {
+            NBTTagCompound tag = new NBTTagCompound();
+            for (Map.Entry<String, Tag> entry : ((CompoundTag) foreign)
+                    .getValue().entrySet()) {
+                tag.set(entry.getKey(), fromNative(entry.getValue()));
+            }
+            return tag;
+        } else if (foreign instanceof ByteTag) {
+            return new NBTTagByte(((ByteTag) foreign).getValue());
+        } else if (foreign instanceof ByteArrayTag) {
+            return new NBTTagByteArray(((ByteArrayTag) foreign).getValue());
+        } else if (foreign instanceof DoubleTag) {
+            return new NBTTagDouble(((DoubleTag) foreign).getValue());
+        } else if (foreign instanceof FloatTag) {
+            return new NBTTagFloat(((FloatTag) foreign).getValue());
+        } else if (foreign instanceof IntTag) {
+            return new NBTTagInt(((IntTag) foreign).getValue());
+        } else if (foreign instanceof IntArrayTag) {
+            return new NBTTagIntArray(((IntArrayTag) foreign).getValue());
+        } else if (foreign instanceof ListTag) {
+            NBTTagList tag = new NBTTagList();
+            ListTag foreignList = (ListTag) foreign;
+            for (Tag t : foreignList.getValue()) {
+                tag.add(fromNative(t));
+            }
+            return tag;
+        } else if (foreign instanceof LongTag) {
+            return new NBTTagLong(((LongTag) foreign).getValue());
+        } else if (foreign instanceof ShortTag) {
+            return new NBTTagShort(((ShortTag) foreign).getValue());
+        } else if (foreign instanceof StringTag) {
+            return new NBTTagString(foreign.getName());
+        } else if (foreign instanceof EndTag) {
+            throw new IllegalArgumentException("Cant make EndTag: "
+                    + foreign.getName());
+        } else {
+            throw new IllegalArgumentException("Don't know how to make NMS "
+                    + foreign.getClass().getCanonicalName());
+        }
+    }
+	
 }
