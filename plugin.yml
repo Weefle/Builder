@@ -4,7 +4,6 @@ version: 2.0.0
 main: net.jrbudda.builder.Builder
 depends: [Citizens]
 softdepends: [Denizen, dynmap]
-#api-version: 1.13
 commands:
   builder:
     description: Lists builder commands.
