@@ -8,6 +8,19 @@ import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.Set;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.Directional;
+import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.v1_13_R2.CraftWorld;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.MaterialData;
+import org.dynmap.DynmapCommonAPI;
+
 import net.citizensnpcs.api.exception.NPCLoadException;
 import net.citizensnpcs.api.jnbt.CompoundTag;
 import net.citizensnpcs.api.trait.Trait;
@@ -16,17 +29,6 @@ import net.citizensnpcs.trait.Toggleable;
 import net.minecraft.server.v1_13_R2.BlockPosition;
 import net.minecraft.server.v1_13_R2.NBTTagCompound;
 import net.minecraft.server.v1_13_R2.TileEntity;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.block.Block;
-import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_13_R2.CraftWorld;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.MaterialData;
-import org.dynmap.DynmapCommonAPI;
 
 public class BuilderTrait extends Trait implements Toggleable {
 
@@ -598,8 +600,20 @@ public class BuilderTrait extends Trait implements Toggleable {
 			if(State==BuilderState.marking && !clearingMarks) {
 				_marks.add(new DataBuildBlock(pending.getX(), pending.getY(), pending.getZ(), pending.getType().getId(), pending.getData()));
 			}
-
-			pending.setType(DataBuildBlock.convertMaterial(next.getMat().getItemType().getId(), next.getMat().getData()), false);
+			//pending.setType(DataBuildBlock.convertMaterial(next.getMat().getItemType().getId(), next.getMat().getData()), false);
+			BlockData bdata = DataBuildBlock.convertMaterial(next.getMat().getItemType().getId(), next.getMat().getData()).createBlockData();
+			
+			if (bdata instanceof Directional) {
+	            Directional directional = (Directional) bdata;
+	            //pending.setBlockData(directional);
+	            directional.setFacing(FaceResolver.resolveFace(pending.getData()));
+	            pending.setBlockData(directional);
+	            for(Player p : Bukkit.getOnlinePlayers()) {
+	            	p.sendMessage(""+pending.getData());
+	            }
+	        }else {
+	        	pending.setBlockData(bdata);
+	        }
 
 			if (next instanceof TileBuildBlock){			
 				//lol what
