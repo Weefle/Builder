@@ -27,6 +27,7 @@ import net.citizensnpcs.api.trait.Trait;
 import net.citizensnpcs.api.util.DataKey;
 import net.citizensnpcs.trait.Toggleable;
 import net.minecraft.server.v1_13_R2.BlockPosition;
+import net.minecraft.server.v1_13_R2.IBlockData;
 import net.minecraft.server.v1_13_R2.NBTTagCompound;
 import net.minecraft.server.v1_13_R2.TileEntity;
 
@@ -462,7 +463,7 @@ public class BuilderTrait extends Trait implements Toggleable {
 				//dont replace grass with dirt, and vice versa.
 				if (pending.getType().getId() == 3 && next.getMat().getItemType().getId() ==2) ok = false;
 				if (pending.getType().getId() == 2 && next.getMat().getItemType().getId() ==3) ok = false;
-				if (pending.getType().getId() == next.getMat().getItemType().getId() && pending.getData() == next.getMat().getData()) ok =false;
+				if (pending.getType().getId() == next.getMat().getItemType().getId() && pending.getData() == next.getData()) ok =false;
 				//dont bother putting a block that already exists.
 
 			} while(!ok);
@@ -486,8 +487,8 @@ public class BuilderTrait extends Trait implements Toggleable {
 
 				/*if((npc.getEntity() instanceof org.bukkit.entity.HumanEntity) && this.HoldItems)((org.bukkit.entity.HumanEntity) npc.getEntity()).getInventory().setItemInHand(new ItemStack(m));	
 				else if((npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems)	((org.bukkit.entity.Enderman) npc.getEntity()).setCarriedMaterial(new MaterialData(m));*/
-				if((npc.getEntity() instanceof org.bukkit.entity.HumanEntity) && this.HoldItems)((org.bukkit.entity.HumanEntity) npc.getEntity()).getInventory().setItemInHand(new ItemStack(DataBuildBlock.convertMaterial(m, (byte)0)));	
-				else if((npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems)	((org.bukkit.entity.Enderman) npc.getEntity()).setCarriedMaterial(new MaterialData(DataBuildBlock.convertMaterial(m, (byte)0)));
+				if((npc.getEntity() instanceof org.bukkit.entity.HumanEntity) && this.HoldItems)((org.bukkit.entity.HumanEntity) npc.getEntity()).getInventory().setItemInHand(new ItemStack(DataBuildBlock.convertMaterial(m, (byte)0).getItemType()));	
+				else if((npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems)	((org.bukkit.entity.Enderman) npc.getEntity()).setCarriedMaterial(DataBuildBlock.convertMaterial(m, (byte)0));
 			}
 		}
 
@@ -572,8 +573,8 @@ public class BuilderTrait extends Trait implements Toggleable {
 
 		/*if((npc.getEntity() instanceof org.bukkit.entity.HumanEntity) && this.HoldItems)((org.bukkit.entity.HumanEntity) npc.getEntity()).getInventory().setItemInHand(new ItemStack(0));	
 		else if((npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems)	((org.bukkit.entity.Enderman) npc.getEntity()).setCarriedMaterial(new MaterialData(0));*/
-		if((npc.getEntity() instanceof org.bukkit.entity.HumanEntity) && this.HoldItems)((org.bukkit.entity.HumanEntity) npc.getEntity()).getInventory().setItemInHand(new ItemStack(DataBuildBlock.convertMaterial(0, (byte)0)));	
-		else if((npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems)	((org.bukkit.entity.Enderman) npc.getEntity()).setCarriedMaterial(new  MaterialData(DataBuildBlock.convertMaterial(0, (byte)0)));
+		if((npc.getEntity() instanceof org.bukkit.entity.HumanEntity) && this.HoldItems)((org.bukkit.entity.HumanEntity) npc.getEntity()).getInventory().setItemInHand(new ItemStack(DataBuildBlock.convertMaterial(0, (byte)0).getItemType()));	
+		else if((npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems)	((org.bukkit.entity.Enderman) npc.getEntity()).setCarriedMaterial(DataBuildBlock.convertMaterial(0, (byte)0));
 
 		if (stop && plugin.getServer().getPluginManager().getPlugin("dynmap") != null){
 			if (plugin.getServer().getPluginManager().getPlugin("dynmap").isEnabled()) {
@@ -601,18 +602,25 @@ public class BuilderTrait extends Trait implements Toggleable {
 				_marks.add(new DataBuildBlock(pending.getX(), pending.getY(), pending.getZ(), pending.getType().getId(), pending.getData()));
 			}
 			//pending.setType(DataBuildBlock.convertMaterial(next.getMat().getItemType().getId(), next.getMat().getData()), false);
-			BlockData bdata = DataBuildBlock.convertMaterial(next.getMat().getItemType().getId(), next.getMat().getData()).createBlockData();
+			BlockData bdata = DataBuildBlock.convertMaterial(next.getMat().getItemType().getId(), next.getData()).getItemType().createBlockData();
 			
 			if (bdata instanceof Directional) {
 	            Directional directional = (Directional) bdata;
 	            //pending.setBlockData(directional);
-	            directional.setFacing(FaceResolver.resolveFace(pending.getData()));
+	            directional.setFacing(FaceResolver.resolveFace(next.getData()));
 	            pending.setBlockData(directional);
-	            for(Player p : Bukkit.getOnlinePlayers()) {
+	            /*for(Player p : Bukkit.getOnlinePlayers()) {
 	            	p.sendMessage(""+pending.getData());
-	            }
+	            }*/
+	            
 	        }else {
 	        	pending.setBlockData(bdata);
+	        //	DataBuildBlock bdb = new DataBuildBlock(0, 0, 0, 163, (byte) 3);
+	        	/*for(Player p : Bukkit.getOnlinePlayers()) {
+	            	p.sendMessage("" + bdb.getData());
+	            	
+	            }*/
+	        	
 	        }
 
 			if (next instanceof TileBuildBlock){			

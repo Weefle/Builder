@@ -74,7 +74,7 @@ public class BuilderListener implements Listener {
 					ItemStack newis;
 
 					if (is.getAmount() - taking > 0) newis= is.clone();
-					else newis = new ItemStack(DataBuildBlock.convertMaterial(0, (byte)0));
+					else newis = new ItemStack(DataBuildBlock.convertMaterial(0, (byte)0).getItemType());
 					newis.setAmount(is.getAmount() - taking);
 					event.getClicker().setItemInHand(newis);
 

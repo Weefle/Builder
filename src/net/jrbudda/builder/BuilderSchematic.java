@@ -108,7 +108,7 @@ public class BuilderSchematic {
 				if (excavate && pending.isEmpty()==false) exair.add(new EmptyBuildBlock(b.X, b.Y, b.Z));
 
 				if(!excavate){	//wont be nuffing there, lol
-					if (pending.getType().getId() == b.getMat().getItemType().getId() && pending.getData() == b.getMat().getData() ) continue;
+					if (pending.getType().getId() == b.getMat().getItemType().getId() && pending.getData() == b.getData() ) continue;
 					else if (pending.getType().getId() == 3 && b.getMat().getItemType().getId() ==2)  continue;
 					else if (pending.getType().getId() == 2 && b.getMat().getItemType().getId() ==3) continue;
 
