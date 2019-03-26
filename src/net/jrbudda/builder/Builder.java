@@ -9,18 +9,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 
-import net.aufdemrand.denizen.objects.dNPC;
-import net.citizensnpcs.Citizens;
-import net.citizensnpcs.api.CitizensAPI;
-import net.citizensnpcs.api.npc.NPC;
-import net.citizensnpcs.api.trait.TraitInfo;
-import net.citizensnpcs.api.trait.trait.Owner;
-import net.minecraft.server.v1_13_R2.Block;
-import net.minecraft.server.v1_13_R2.BlockPosition;
-import net.minecraft.server.v1_13_R2.IBlockData;
-import net.minecraft.server.v1_13_R2.Item;
-import net.minecraft.server.v1_13_R2.World;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -31,6 +19,17 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import net.aufdemrand.denizen.objects.dNPC;
+import net.citizensnpcs.Citizens;
+import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.npc.NPC;
+import net.citizensnpcs.api.trait.TraitInfo;
+import net.citizensnpcs.api.trait.trait.Owner;
+import net.minecraft.server.v1_13_R2.Block;
+import net.minecraft.server.v1_13_R2.BlockPosition;
+import net.minecraft.server.v1_13_R2.Item;
+import net.minecraft.server.v1_13_R2.World;
 
 
 public class Builder extends JavaPlugin {
@@ -61,6 +60,17 @@ public class Builder extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		
+		try {
+			new Metrics(this);
+			getLogger().info("Metrics setup was successful!");
+			new Updater(this, 55326);
+			getLogger().info("Updater setup was successful!");
+		} catch (IOException e) {
+			getLogger().severe("Failed to setup Updater!");
+			getLogger().severe("Verify the resource's link!");
+			e.printStackTrace();
+		}
 
 		if(getServer().getPluginManager().getPlugin("Citizens") == null || getServer().getPluginManager().getPlugin("Citizens").isEnabled() == false) {
 			getLogger().log(Level.SEVERE, "Citizens 2.0 not found or not enabled");
