@@ -46,8 +46,8 @@ public class Updater
     this.log = log;
     this.url = new URL("https://api.spiget.org/v2/resources/" + resourceID + "/versions/latest");
     
-    File configDir = new File(plugin.getDataFolder().getParentFile(), "SkWaze");
-    File config = new File(configDir, "config.yml");
+    File configDir = new File(plugin.getDataFolder().getParentFile(), "Builder");
+    File config = new File(configDir, "updater.yml");
     YamlConfiguration yamlConfig = new YamlConfiguration();
     if (!configDir.exists()) {
       configDir.mkdirs();
@@ -55,7 +55,7 @@ public class Updater
     if (!config.exists())
     {
       config.createNewFile();
-      yamlConfig.options().header("Configuration for the SkWazeUpdater system\nit will inform you about new versions of all plugins which use this updater\n'enabled' specifies whether the system is enabled (affects all plugins)");
+      yamlConfig.options().header("Configuration for the Builder updater system\nit will inform you about new versions of all plugins which use this updater\n'enabled' specifies whether the system is enabled (affects all plugins)");
       
       yamlConfig.options().copyDefaults(true);
       yamlConfig.addDefault("enabled", Boolean.valueOf(true));
