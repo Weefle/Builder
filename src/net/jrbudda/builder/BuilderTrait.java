@@ -12,11 +12,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Directional;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.MaterialData;
+import org.bukkit.material.Stairs;
 import org.dynmap.DynmapCommonAPI;
 
 import net.citizensnpcs.api.exception.NPCLoadException;
@@ -601,14 +604,9 @@ public class BuilderTrait extends Trait implements Toggleable {
 			
 			if (bdata instanceof Directional) {
 	            Directional directional = (Directional) bdata;
-	     
-	            //try NMS here to set stairs to materialdata
 	    
 	            
-	           /* if(next.getMat().getItemType().toString().contains("STAIRS") && next.getData()>=4) {
-	            	for(Player p : Bukkit.getOnlinePlayers()) {
-	 	            	p.sendMessage("au dessus");
-	 	            }
+	            if(next.getMat().getItemType().toString().contains("STAIRS") && next.getData()>=4) {
 	            
 	      
 	            
@@ -617,20 +615,14 @@ public class BuilderTrait extends Trait implements Toggleable {
 	                Stairs stairs = new Stairs(next.getMat().getItemType());
 	        		stairs.setFacingDirection(FaceResolver.resolveFace(next));
 	        		stairs.setInverted(true);
-	              for(Player p : Bukkit.getOnlinePlayers()) {
-	 	            	p.sendMessage("avant: "+stairs.toString());
-	 	            }
-	                bs.setData(new MaterialData(Bukkit.getUnsafe().fromLegacy(stairs, true)));
-	                for(Player p : Bukkit.getOnlinePlayers()) {
-	 	            	p.sendMessage("après: "+new MaterialData(Bukkit.getUnsafe().fromLegacy(stairs, true)).toString());
-	 	            }
+	        		bs.setData(MaterialUtils.str2MaterialData(MaterialUtils.materialData2Str(stairs)));
 	    
 	                bs.update(true, true);
 
-	            }else {*/
+	            }else {
 	            	directional.setFacing(FaceResolver.resolveFace(next));
 		 	           pending.setBlockData(directional);
-	         //   }
+	            }
 	            	 
 	            
 	     
