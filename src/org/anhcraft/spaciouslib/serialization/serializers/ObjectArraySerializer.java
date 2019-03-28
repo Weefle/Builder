@@ -1,13 +1,13 @@
 package org.anhcraft.spaciouslib.serialization.serializers;
 
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.lang.reflect.Array;
+
 import org.anhcraft.spaciouslib.serialization.DataMapping;
 import org.anhcraft.spaciouslib.serialization.DataSerialization;
 import org.anhcraft.spaciouslib.serialization.DataSerializerStream;
 import org.anhcraft.spaciouslib.serialization.DataType;
-
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.lang.reflect.Array;
 
 public class ObjectArraySerializer extends DataType<Object[]> {
     public ObjectArraySerializer(byte id) {

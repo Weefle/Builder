@@ -1,9 +1,5 @@
 package org.anhcraft.spaciouslib;
 
-import org.anhcraft.spaciouslib.utils.Group;
-import org.anhcraft.spaciouslib.utils.IOUtils;
-import org.anhcraft.spaciouslib.utils.ProxyUtils;
-
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
@@ -12,6 +8,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import org.anhcraft.spaciouslib.utils.Group;
+import org.anhcraft.spaciouslib.utils.IOUtils;
+import org.anhcraft.spaciouslib.utils.ProxyUtils;
 
 public class ProxyChecker {
     public static void main(String[ ]args){

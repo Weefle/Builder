@@ -6,9 +6,6 @@ public class FaceResolver {
 
 	public static BlockFace resolveFace(EmptyBuildBlock block) {
 		
-	/*	Block b = Bukkit.getServer().getWorld("world").getBlockAt(new Location(Bukkit.getServer().getWorld("world"), 1000, 1000, 1000));
-		
-		b.setBlockData(data);*/
 
 		if(block.getMat().getItemType().toString().contains("STAIRS")) {
 		

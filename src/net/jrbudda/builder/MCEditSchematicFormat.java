@@ -3,11 +3,11 @@ package net.jrbudda.builder;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.bukkit.util.Vector;
 
 import net.citizensnpcs.api.jnbt.ByteArrayTag;
 import net.citizensnpcs.api.jnbt.CompoundTag;
@@ -18,12 +18,9 @@ import net.citizensnpcs.api.jnbt.ShortTag;
 import net.citizensnpcs.api.jnbt.StringTag;
 import net.citizensnpcs.api.jnbt.Tag;
 
-import org.bukkit.util.Vector;
-
 
 
 public class MCEditSchematicFormat {
-	//private static final int MAX_SIZE = Short.MAX_VALUE - Short.MIN_VALUE;
 
 	public static  BuilderSchematic load(File path, String filename) throws IOException, Exception {
 

@@ -1,12 +1,12 @@
 package org.anhcraft.spaciouslib.serialization.serializers;
 
+import java.io.DataInputStream;
+import java.io.IOException;
+
 import org.anhcraft.spaciouslib.serialization.DataMapping;
 import org.anhcraft.spaciouslib.serialization.DataSerializerStream;
 import org.anhcraft.spaciouslib.serialization.DataType;
 import org.anhcraft.spaciouslib.utils.ExceptionThrower;
-
-import java.io.DataInputStream;
-import java.io.IOException;
 
 public class EnumSerializer extends DataType<Enum<?>> {
     public EnumSerializer(byte id) {

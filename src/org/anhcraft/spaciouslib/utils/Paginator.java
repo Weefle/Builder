@@ -1,8 +1,8 @@
 package org.anhcraft.spaciouslib.utils;
 
-import org.anhcraft.spaciouslib.builders.ArrayBuilder;
-
 import java.util.function.Consumer;
+
+import org.anhcraft.spaciouslib.builders.ArrayBuilder;
 
 /**
  * Represents an array splitter which splits the array into pages

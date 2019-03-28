@@ -1,11 +1,11 @@
 package org.anhcraft.spaciouslib.serialization;
 
-import org.anhcraft.spaciouslib.utils.Returner;
-
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+
+import org.anhcraft.spaciouslib.utils.Returner;
 
 public abstract class DataType<T> {
     protected static final HashMap<String, Returner> instanceProviders = new HashMap<>();

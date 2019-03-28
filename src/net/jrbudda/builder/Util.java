@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 import java.util.Map.Entry;
-import java.util.Random;
+import java.util.Queue;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.material.MaterialData;
 
 import net.citizensnpcs.api.jnbt.ByteArrayTag;
 import net.citizensnpcs.api.jnbt.ByteTag;
@@ -39,14 +42,9 @@ import net.minecraft.server.v1_13_R2.NBTTagShort;
 import net.minecraft.server.v1_13_R2.NBTTagString;
 import net.minecraft.server.v1_13_R2.World;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.material.MaterialData;
-
 
 public class Util {
 
-	//static MaterialData Air = new MaterialData(0,(byte) 0);
 	static MaterialData Air = DataBuildBlock.convertMaterial(0, (byte)0);
 	
 	public static String printList(Map<Integer, Double> map){
@@ -271,98 +269,98 @@ public class Util {
 				item =(Integer) (Block.getByCombinedId(item) !=null ? Item.getId(Block.getByCombinedId(item).getBlock().getDropType(Block.getByCombinedId(item).getBlock().getBlockData(), (World) Bukkit.getWorlds().get(0), BlockPosition.ZERO,-10000).getItem()) : item);
 			}
 			
-//			if (RequireUnobtainable){
-//				switch (item){
-//				case 0:
-//					//air
-//					continue;
-//				case 90:
-//					//portal
-//					continue;
-//				case 51:
-//					//fire
-//				continue;
-//				}
-//			}
-//			else {
-//				switch (item){
-//				case 0:
-//					//air
-//					continue;
-//				case 90:
-//					//portal
-//					continue;
-//				case 97:
-//					//silverfish egg
-//					continue;
-//				case 95:
-//					//locked chest
-//					item = 54;
-//				case 78:
-//					// snow
-//					continue;
-//				case 34:
-//					// piston head
-//					continue;
-//				case 119:
-//					// end portal
-//					continue;
-//				case 80:
-//					//snow block
-//					break;
-//				case 92:
-//					//cake
-//					item = 354;
-//					break;
-//				case 43: case 125:
-//					//double slabs
-//					item +=1;
-//					addamt = 2;
-//					break;
-//				case 20:
-//					//glass
-//					break;
-//				case 102:
-//					//glass pane
-//					break;
-//				case 47:
-//					//bookshelf
-//					break;
-//				case 103:
-//					//melon
-//					item = 362;
-//					break;
-//				case 130:
-//					//ender chest
-//					break;
-//				case 134: case 135: case 136:
-//					//wood stairs
-//					item = 53;
-//					break;
-//				case 128: case 109: case 108:
-//					//stone staitr;
-//					item = 67;
-//					break;
-//				case 79:
-//					//ice
-//					item = 332;
-//					break;
-//				case 51:
-//					//fire
-//					continue;
-//				case 59:
-//					//crops
-//					item = 295;
-//					break;
-//				case 72:
-//					//pressure plate
-//					item = 70;
-//					break;
-//				default:
-//					item =Block.byId[item] !=null ? Block.byId[item].getDropType(b.mat.getData(), R,-10000) : item;
-//					break;
-//				}
-//			}
+			/*if (RequireUnobtainable){
+				switch (item){
+				case 0:
+					air
+					continue;
+				case 90:
+					portal
+					continue;
+				case 51:
+					fire
+				continue;
+				}
+			}
+			else {
+				switch (item){
+				case 0:
+					air
+					continue;
+				case 90:
+					portal
+					continue;
+				case 97:
+					silverfish egg
+					continue;
+				case 95:
+					locked chest
+					item = 54;
+				case 78:
+					 snow
+					continue;
+				case 34:
+					 piston head
+					continue;
+				case 119:
+					 end portal
+					continue;
+				case 80:
+					snow block
+					break;
+				case 92:
+					cake
+					item = 354;
+					break;
+				case 43: case 125:
+					double slabs
+					item +=1;
+					addamt = 2;
+					break;
+				case 20:
+					glass
+					break;
+				case 102:
+					glass pane
+					break;
+				case 47:
+					bookshelf
+					break;
+				case 103:
+					melon
+					item = 362;
+					break;
+				case 130:
+					ender chest
+					break;
+				case 134: case 135: case 136:
+					wood stairs
+					item = 53;
+					break;
+				case 128: case 109: case 108:
+					stone staitr;
+					item = 67;
+					break;
+				case 79:
+					ice
+					item = 332;
+					break;
+				case 51:
+					fire
+					continue;
+				case 59:
+					crops
+					item = 295;
+					break;
+				case 72:
+					pressure plate
+					item = 70;
+					break;
+				default:
+					item =Block.byId[item] !=null ? Block.byId[item].getDropType(b.mat.getData(), R,-10000) : item;
+					break;
+				}
+			}*/
 
 
 			if(item <=0) continue;

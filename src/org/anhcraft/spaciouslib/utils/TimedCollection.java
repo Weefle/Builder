@@ -1,13 +1,15 @@
 package org.anhcraft.spaciouslib.utils;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+
 import org.anhcraft.spaciouslib.annotations.DataField;
 import org.anhcraft.spaciouslib.annotations.Serializable;
 import org.anhcraft.spaciouslib.builders.EqualsBuilder;
 import org.anhcraft.spaciouslib.builders.HashCodeBuilder;
-
-import java.util.*;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 /**
  * Represents a collection which is able to clean its expired elements automatically.

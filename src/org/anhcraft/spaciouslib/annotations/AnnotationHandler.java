@@ -1,10 +1,10 @@
 package org.anhcraft.spaciouslib.annotations;
 
-import org.anhcraft.spaciouslib.utils.ExceptionThrower;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import org.anhcraft.spaciouslib.utils.ExceptionThrower;
 
 public class AnnotationHandler {
     private static HashMap<Class, List<Object>> data = new HashMap<>();

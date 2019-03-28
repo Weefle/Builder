@@ -1,10 +1,10 @@
 package org.anhcraft.spaciouslib.utils;
 
-import org.anhcraft.spaciouslib.builders.ArrayBuilder;
-
 import java.security.SecureRandom;
 import java.util.List;
 import java.util.Set;
+
+import org.anhcraft.spaciouslib.builders.ArrayBuilder;
 
 /**
  * A utility class about randomization
