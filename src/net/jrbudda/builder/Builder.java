@@ -61,22 +61,25 @@ public class Builder extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		
-		try {
-			new Metrics(this);
-			getLogger().info("Metrics setup was successful!");
-			new Updater(this, 55326);
-			getLogger().info("Updater setup was successful!");
-		} catch (IOException e) {
-			getLogger().severe("Failed to setup Updater!");
-			getLogger().severe("Verify the resource's link!");
-			e.printStackTrace();
-		}
-
-		if(getServer().getPluginManager().getPlugin("Citizens") == null || getServer().getPluginManager().getPlugin("Citizens").isEnabled() == false) {
+		if(getServer().getPluginManager().getPlugin("Citizens") != null || getServer().getPluginManager().getPlugin("Citizens").isEnabled() == true) {
+			getLogger().log(Level.INFO, "Citizens 2.0 is now enabled");
+		}else {
 			getLogger().log(Level.SEVERE, "Citizens 2.0 not found or not enabled");
 			getServer().getPluginManager().disablePlugin(this);	
 			return;
-		}	
+		}
+		try {
+			new Metrics(this);
+			getLogger().info("Metrics setup was successful");
+			new Updater(this, 55326);
+			getLogger().info("Updater setup was successful");
+		} catch (IOException e) {
+			getLogger().severe("Failed to setup Updater");
+			getLogger().severe("Verify the resource's link");
+			e.printStackTrace();
+		}
+
+			
 		try {
 			setupDenizenHook();
 		} catch (ActivationException e) {
