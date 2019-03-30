@@ -7,7 +7,7 @@ public class FaceResolver {
 	public static BlockFace resolveFace(EmptyBuildBlock block) {
 		
 
-		if(block.getMat().getItemType().toString().contains("STAIRS")) {
+		/*if(block.getMat().getItemType().toString().contains("STAIRS")) {
 		
 		 switch (block.getData()) {
 		
@@ -31,7 +31,7 @@ public class FaceResolver {
 		
 		}
 		 
-		}else if(block.getMat().getItemType().toString().contains("TORCH")) {
+		}else*/ if(block.getMat().getItemType().toString().contains("TORCH")) {
 		
 		 switch (block.getData()) {
 		
@@ -69,7 +69,7 @@ public class FaceResolver {
 				
 				}
 			
-		}else if(block.getMat().getItemType().toString().contains("BED")){
+		}/*else if(block.getMat().getItemType().toString().contains("BED")){
 			
 			switch (block.getData()) {
 			
@@ -80,6 +80,14 @@ public class FaceResolver {
 			case 2: return BlockFace.NORTH;
 
 			case 3: return BlockFace.EAST;
+			
+			case 8:  return BlockFace.SOUTH;
+
+			case 9: return BlockFace.WEST;
+
+			case 10: return BlockFace.NORTH;
+
+			case 11: return BlockFace.EAST;
 
 			default: return BlockFace.EAST;
 			
@@ -101,7 +109,7 @@ public class FaceResolver {
 			
 			
 		}
-		}else if(block.getMat().getItemType().toString().contains("PISTON")){
+		}*/else if(block.getMat().getItemType().toString().contains("PISTON")){
 			
 			switch (block.getData()) {
 			

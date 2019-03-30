@@ -18,6 +18,8 @@ import org.bukkit.block.data.Directional;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.Banner;
+import org.bukkit.material.Bed;
 import org.bukkit.material.Door;
 import org.bukkit.material.MaterialData;
 import org.bukkit.material.Stairs;
@@ -601,39 +603,37 @@ public class BuilderTrait extends Trait implements Toggleable {
 			}
 		
 			BlockData bdata = DataBuildBlock.convertMaterial(next.getMat().getItemType().getId(), next.getData()).getItemType().createBlockData();
-			
-		/*for(Player p : Bukkit.getOnlinePlayers()) {
-			//p.sendMessage(""+new MaterialData(next.getMat().getItemType(), next.getData()));
-			p.sendMessage(""+next.getMat().getItemType());
-		}*/
-			
+
 			if (bdata instanceof Directional) {
 	            Directional directional = (Directional) bdata;
 	            	
-	           if(next.getMat().getItemType().toString().contains("STAIRS") && next.getData()>=4) {
+	           if(next.getMat().getItemType().toString().contains("STAIRS")) {
 	            	BlockState bs = pending.getState();
 	                Stairs stairs = new Stairs(next.getMat().getItemType());
-	        		stairs.setFacingDirection(FaceResolver.resolveFace(next));
-	        		stairs.setInverted(true);
+	                stairs.setData(next.getData());
+	        		if(next.getData()>=4) {
+	                stairs.setInverted(true);
+	        		}
 	        		bs.setData(MaterialUtils.str2MaterialData(MaterialUtils.materialData2Str(stairs)));
 	                bs.update(true, true);
 	            }
-	           //doesn't work :/
-	           /*else if(next.getMat().getItemType().toString().contains("SLAB") && next.getData()>=8) {
-	            	for(Player p : Bukkit.getOnlinePlayers()) {
-	        			p.sendMessage("detect"+next.getMat().getItemType());
-	        		}
-	            	BlockState bs = pending.getState();
-	                Step step = new Step(next.getMat().getItemType());
-	        		step.setInverted(true);
-	        		bs.setData(MaterialUtils.str2MaterialData(MaterialUtils.materialData2Str(step)));
-	                bs.update(true, true);
-	            }*/else if(next.getMat().getItemType().toString().contains("DOOR") && next.getData()>=8) {
+	           else if(next.getMat().getItemType().toString().contains("DOOR")) {
 	            	BlockState bs = pending.getState();
 	                Door door = new Door(next.getMat().getItemType());
-	                door.setFacingDirection(FaceResolver.resolveFace(next));
-	        		door.setTopHalf(true);
+	                door.setData(next.getData());
+	                if(next.getData()>=8) {
+	                	door.setTopHalf(true);
+		        		}
 	        		bs.setData(MaterialUtils.str2MaterialData(MaterialUtils.materialData2Str(door)));
+	                bs.update(true, true);
+	            }else if(next.getMat().getItemType().toString().contains("BED")) {
+	            	BlockState bs = pending.getState();
+	                Bed bed = new Bed(next.getMat().getItemType());
+	                bed.setData(next.getData());
+	                if(next.getData()>=8) {
+	        		bed.setHeadOfBed(true);
+	                }
+	        		bs.setData(MaterialUtils.str2MaterialData(MaterialUtils.materialData2Str(bed)));
 	                bs.update(true, true);
 	            }
 	            
@@ -645,7 +645,16 @@ public class BuilderTrait extends Trait implements Toggleable {
 	            
 	     
            
-	        }else {
+	        }else if(next.getMat().getItemType().toString().contains("SLAB")) {
+            	BlockState bs = pending.getState();
+                Step step = new Step(next.getMat().getItemType());
+                step.setData(next.getData());
+                if(next.getData()>=8) {
+        		step.setInverted(true);
+                }
+        		bs.setData(MaterialUtils.str2MaterialData(MaterialUtils.materialData2Str(step)));
+                bs.update(true, true);
+            }else{
 	        	pending.setBlockData(bdata);
 	     
 	        	
