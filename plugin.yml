@@ -1,6 +1,6 @@
 name: Builder
 authors: [jrbudda, Weefle, AnhCraft]
-version: 2.0.3
+version: 2.0.4
 main: net.jrbudda.builder.Builder
 depends: [Citizens]
 load: POSTWORLD
