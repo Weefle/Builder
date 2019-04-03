@@ -90,13 +90,8 @@ public class Builder extends JavaPlugin {
 		else getLogger().log(Level.INFO,"Builder could not register with Denizen");
 
 
-		if(CitizensAPI.getTraitFactory() != null) {
 		CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(BuilderTrait.class).withName("builder"));
 		this.getServer().getPluginManager().registerEvents(new BuilderListener(this), this);
-		}else {
-			return;
-		}
-
 
 
 		reloadMyConfig();
