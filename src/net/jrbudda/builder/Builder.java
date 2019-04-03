@@ -34,7 +34,7 @@ import net.minecraft.server.v1_13_R2.World;
 
 public class Builder extends JavaPlugin {
 
-	public boolean debug = false;;
+	public boolean debug = false;
 
 	public String schematicsFolder = "";
 	private List<Integer> MarkMats = new ArrayList<Integer>();
@@ -90,7 +90,7 @@ public class Builder extends JavaPlugin {
 		else getLogger().log(Level.INFO,"Builder could not register with Denizen");
 
 
-		if(CitizensAPI.getTraitFactory().getTrait("builder") == null) {
+		if(CitizensAPI.getTraitFactory() != null) {
 		CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(BuilderTrait.class).withName("builder"));
 		this.getServer().getPluginManager().registerEvents(new BuilderListener(this), this);
 		}else {
@@ -871,7 +871,6 @@ public class Builder extends JavaPlugin {
 
 
 	}
-
 
 
 }

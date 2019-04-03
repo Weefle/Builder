@@ -24,7 +24,7 @@ DefaultTexts:
  Supply_Item_Taken: "&f<NPC> says: &aThanks for the &f<AMOUNT> <ITEM>, <PLAYER>!"
 
 DefaultOptions:
-  MoveTimeoutSeconds: 2.0
+  MoveTimeoutSeconds: 1.0
   IgnoreProtection: false #not working
   HoldItems: true
   RequireMaterials: false
