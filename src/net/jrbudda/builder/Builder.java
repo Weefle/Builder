@@ -24,7 +24,6 @@ import net.aufdemrand.denizen.objects.dNPC;
 import net.citizensnpcs.Citizens;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
-import net.citizensnpcs.api.trait.TraitInfo;
 import net.citizensnpcs.api.trait.trait.Owner;
 import net.minecraft.server.v1_13_R2.Block;
 import net.minecraft.server.v1_13_R2.BlockPosition;
@@ -35,6 +34,8 @@ import net.minecraft.server.v1_13_R2.World;
 public class Builder extends JavaPlugin {
 
 	public boolean debug = false;
+	
+	public static Builder instance;
 
 	public String schematicsFolder = "";
 	private List<Integer> MarkMats = new ArrayList<Integer>();
@@ -57,9 +58,10 @@ public class Builder extends JavaPlugin {
 
 	public static java.util.HashMap<Integer, supplymap> SupplyMapping;
 
-
 	@Override
 	public void onEnable() {
+		
+		instance=this;
 		
 		if(getServer().getPluginManager().getPlugin("Citizens") != null || getServer().getPluginManager().getPlugin("Citizens").isEnabled() == true) {
 			getLogger().log(Level.INFO, "Citizens 2.0 is now enabled");
@@ -88,13 +90,11 @@ public class Builder extends JavaPlugin {
 
 		if (denizen != null)	getLogger().log(Level.INFO,"Builder registered sucessfully with Denizen");
 		else getLogger().log(Level.INFO,"Builder could not register with Denizen");
-
-
-		CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(BuilderTrait.class).withName("builder"));
-		this.getServer().getPluginManager().registerEvents(new BuilderListener(this), this);
-
-
+		
+		getServer().getPluginManager().registerEvents(new TraitListener(), this);
+		
 		reloadMyConfig();
+		
 	}
 
 
@@ -864,8 +864,6 @@ public class Builder extends JavaPlugin {
 
 		}
 
-
 	}
-
 
 }
