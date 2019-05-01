@@ -43,9 +43,9 @@ public class BuilderListener implements Listener {
 		Player player = event.getClicker();
 		ItemStack is = player.getItemInHand();
 
-		String itemname = Util.getLocalItemName(is.getTypeId());
+		String itemname = Util.getLocalItemName(is.getType().getId());
 
-		if(is.getTypeId() == 0){
+		if(is.getType().getId() == 0){
 			//list what is still needed
 			player.sendMessage(plugin.format(plugin.SupplyListMessage, inst.getNPC(),inst.schematic,(CommandSender) player,null,"0"));
 			player.sendMessage(Util.printList(inst.NeededMaterials));	
@@ -58,7 +58,7 @@ public class BuilderListener implements Listener {
 				return;
 			}
 
-			int item = is.getTypeId();
+			int item = is.getType().getId();
 
 			//do i need it?
 			int needed = (int) (inst.NeededMaterials.containsKey(item) ? inst.NeededMaterials.get(item) : 0);
@@ -74,7 +74,7 @@ public class BuilderListener implements Listener {
 					ItemStack newis;
 
 					if (is.getAmount() - taking > 0) newis= is.clone();
-					else newis = new ItemStack(0);	
+					else newis = new ItemStack(DataBuildBlock.convertMaterial(0, (byte)0).getItemType());
 					newis.setAmount(is.getAmount() - taking);
 					event.getClicker().setItemInHand(newis);
 
