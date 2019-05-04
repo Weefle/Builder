@@ -29,10 +29,10 @@ public class BuilderSchematic {
 		dlength = k;
 		Queue<EmptyBuildBlock> Q = new LinkedList<EmptyBuildBlock>();
 		Q.clear();
-		Q.add(new DataBuildBlock(0,0,0,mat,(byte) 0));
-		Q.add(new DataBuildBlock((int) (i-1),0,0,mat,(byte) 0));
-		Q.add(new DataBuildBlock(0,0,(int)k-1,mat,(byte) 0));
-		Q.add(new DataBuildBlock((int)i-1,0,(int)k-1,mat,(byte) 0));
+		Q.add(new DataBuildBlock(0,0,0, DataBuildBlock.convertMaterial(mat, (byte)0).getItemType().createBlockData()));
+		Q.add(new DataBuildBlock((int) (i-1),0,0,DataBuildBlock.convertMaterial(mat, (byte)0).getItemType().createBlockData()));
+		Q.add(new DataBuildBlock(0,0,(int)k-1,DataBuildBlock.convertMaterial(mat, (byte)0).getItemType().createBlockData()));
+		Q.add(new DataBuildBlock((int)i-1,0,(int)k-1,DataBuildBlock.convertMaterial(mat, (byte)0).getItemType().createBlockData()));
 		return Q;
 	}
 
@@ -58,7 +58,7 @@ public class BuilderSchematic {
 		for (int tmpy = 0;tmpy< this.height();tmpy++){
 			for (int tmpx = 0;tmpx< this.width();tmpx++){
 				for (int tmpz = 0;tmpz< this.length();tmpz++){
-					if (this.Blocks[tmpx][tmpy][tmpz].getMat().getItemType().getId() > 0) {
+					if (this.Blocks[tmpx][tmpy][tmpz].getMat().getMaterial().getId() > 0) {
 						ok = true;
 					}
 				}
@@ -108,13 +108,12 @@ public class BuilderSchematic {
 				if (excavate && pending.isEmpty()==false) exair.add(new EmptyBuildBlock(b.X, b.Y, b.Z));
 
 				if(!excavate){	//wont be nuffing there, lol
-					if (pending.getType().getId() == b.getMat().getItemType().getId() && pending.getData() == b.getData() ) continue;
-					else if (pending.getType().getId() == 3 && b.getMat().getItemType().getId() ==2)  continue;
-					else if (pending.getType().getId() == 2 && b.getMat().getItemType().getId() ==3) continue;
+					if (pending.getType().getId() == b.getMat().getMaterial().getId() ) continue;
+					else if (pending.getType().getId() == 3 && b.getMat().getMaterial().getId() ==2)  continue;
 
 				}
 
-				org.bukkit.Material m = b.getMat().getItemType();
+				org.bukkit.Material m = b.getMat().getMaterial();
 
 				if (m==null) continue;
 

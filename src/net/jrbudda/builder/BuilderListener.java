@@ -2,6 +2,7 @@ package net.jrbudda.builder;
 
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -74,7 +75,7 @@ public class BuilderListener implements Listener {
 					ItemStack newis;
 
 					if (is.getAmount() - taking > 0) newis= is.clone();
-					else newis = new ItemStack(DataBuildBlock.convertMaterial(0, (byte)0).getItemType());
+					else newis = new ItemStack(Material.AIR);
 					newis.setAmount(is.getAmount() - taking);
 					event.getClicker().setItemInHand(newis);
 

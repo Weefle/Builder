@@ -84,7 +84,7 @@ public class MCEditSchematicFormat {
 					if(data!=null) {
 
 					
-						M = new DataBuildBlock(x,y,z, data.getMaterial().getId(), blockData[index]);
+						M = new DataBuildBlock(x,y,z, data);
 					}else {
 						
 						M = new EmptyBuildBlock(x,y,z);

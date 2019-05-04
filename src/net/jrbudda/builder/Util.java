@@ -255,7 +255,7 @@ public class Util {
 			EmptyBuildBlock b = Q.poll();
 
 			if (b==null) break;
-			int item = b.getMat().getItemType().getId();
+			int item = b.getMat().getMaterial().getId();
 			double addamt = 1;
 
 			
