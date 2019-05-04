@@ -16,6 +16,7 @@ import org.bukkit.block.BlockState;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Directional;
 import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.v1_13_R2.CraftWorld;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.Banner;
@@ -27,9 +28,13 @@ import org.bukkit.material.Step;
 import org.dynmap.DynmapCommonAPI;
 
 import net.citizensnpcs.api.exception.NPCLoadException;
+import net.citizensnpcs.api.jnbt.CompoundTag;
 import net.citizensnpcs.api.trait.Trait;
 import net.citizensnpcs.api.util.DataKey;
 import net.citizensnpcs.trait.Toggleable;
+import net.minecraft.server.v1_13_R2.BlockPosition;
+import net.minecraft.server.v1_13_R2.NBTTagCompound;
+import net.minecraft.server.v1_13_R2.TileEntity;
 
 public class BuilderTrait extends Trait implements Toggleable {
 
@@ -660,7 +665,7 @@ public class BuilderTrait extends Trait implements Toggleable {
 	        	
 	        }
 
-		/*	if (next instanceof TileBuildBlock){			
+			/*if (next instanceof TileBuildBlock){			
 				CraftWorld cw =(CraftWorld)pending.getWorld();			
 				CompoundTag nbt = new CompoundTag("", ((TileBuildBlock) next).tiles);
 				NBTTagCompound nmsnbt = (NBTTagCompound) Util.fromNative(nbt);

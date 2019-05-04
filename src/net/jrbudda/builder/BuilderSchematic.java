@@ -11,7 +11,6 @@ import org.bukkit.util.Vector;
 
 
 public class BuilderSchematic {
-	//todo... redo.. multi-dimensional arrays have a lot of overhead apparently.
 	public EmptyBuildBlock[][][] Blocks = new EmptyBuildBlock[1][1][1]; 
 
 	public String Name = ""; 
