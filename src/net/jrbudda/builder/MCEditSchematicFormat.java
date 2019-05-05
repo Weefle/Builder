@@ -34,8 +34,6 @@ public class MCEditSchematicFormat {
 		
 		FileInputStream fis = new FileInputStream(file);
 		NBTTagCompound nbt = NBTCompressedStreamTools.a(fis);
-		
-		System.out.println(nbt);
 
 		Vector origin = new Vector();
 		
