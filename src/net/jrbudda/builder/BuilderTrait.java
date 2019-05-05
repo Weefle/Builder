@@ -97,7 +97,8 @@ public class BuilderTrait extends Trait implements Toggleable {
 		if (SchematicName !=null){
 			File dir= new File(plugin.schematicsFolder);
 			try {
-				schematic = MCEditSchematicFormat.load(dir, SchematicName);
+				MCEditSchematicFormat format = new MCEditSchematicFormat();
+				schematic = format.load(dir, SchematicName);
 				if (schematic == null) {
 					plugin.getLogger().log(java.util.logging.Level.WARNING,"Error loading schematic " + SchematicName +" for " + npc.getName());
 				}

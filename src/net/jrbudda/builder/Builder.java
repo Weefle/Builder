@@ -639,7 +639,8 @@ public class Builder extends JavaPlugin {
 				//load it from file if not found.
 				if(inst.schematic==null);
 				try {
-					inst.schematic = MCEditSchematicFormat.load(dir, arg);
+					MCEditSchematicFormat format = new MCEditSchematicFormat();
+					inst.schematic = format.load(dir, arg);
 				} catch (Exception e) {
 					msg = ChatColor.YELLOW +  e.getMessage();   // Talk to the player.
 					inst.schematic = null;
