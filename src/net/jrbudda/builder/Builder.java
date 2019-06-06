@@ -1,6 +1,5 @@
 package net.jrbudda.builder;
 
-//import java.util.HashMap;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -9,15 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
-
-import net.aufdemrand.denizen.objects.dNPC;
-import net.citizensnpcs.Citizens;
-import net.citizensnpcs.api.CitizensAPI;
-import net.citizensnpcs.api.npc.NPC;
-import net.citizensnpcs.api.trait.TraitInfo;
-import net.citizensnpcs.api.trait.trait.Owner;
-import net.minecraft.server.v1_12_R1.Block;
-import net.minecraft.server.v1_12_R1.Item;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -30,10 +20,19 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.aufdemrand.denizen.objects.dNPC;
+import net.citizensnpcs.Citizens;
+import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.npc.NPC;
+import net.citizensnpcs.api.trait.TraitInfo;
+import net.citizensnpcs.api.trait.trait.Owner;
+import net.minecraft.server.v1_12_R1.Block;
+import net.minecraft.server.v1_12_R1.Item;
+
 
 public class Builder extends JavaPlugin {
 
-	public boolean debug = false;;
+	public boolean debug = false;
 
 	public String schematicsFolder = "";
 	private List<Integer> MarkMats = new ArrayList<Integer>();
@@ -59,12 +58,16 @@ public class Builder extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		
+		do {
+			//nothing
+		}while(getServer().getPluginManager().getPlugin("Citizens") == null || getServer().getPluginManager().getPlugin("Citizens").isEnabled() == false);
 
-		if(getServer().getPluginManager().getPlugin("Citizens") == null || getServer().getPluginManager().getPlugin("Citizens").isEnabled() == false) {
+		/*if(getServer().getPluginManager().getPlugin("Citizens") == null || getServer().getPluginManager().getPlugin("Citizens").isEnabled() == false) {
 			getLogger().log(Level.SEVERE, "Citizens 2.0 not found or not enabled");
 			getServer().getPluginManager().disablePlugin(this);	
 			return;
-		}	
+		}	*/
 		try {
 			setupDenizenHook();
 		} catch (ActivationException e) {
@@ -75,8 +78,9 @@ public class Builder extends JavaPlugin {
 		else getLogger().log(Level.INFO,"Builder could not register with Denizen");
 
 
+		
 		CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(BuilderTrait.class).withName("builder"));
-		this.getServer().getPluginManager().registerEvents(new BuilderListener(this), this);
+		getServer().getPluginManager().registerEvents(new BuilderListener(this), this);
 
 
 
