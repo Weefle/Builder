@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>Builder</groupId>
   <artifactId>Builder</artifactId>
-  <version>3.0.0</version>
+  <version>4.0.0</version>
   <repositories>
   <repository>
     <id>Weefle-weefle</id>
@@ -40,9 +40,8 @@
 <dependency>
   <groupId>org.spigotmc</groupId>
   <artifactId>spigot</artifactId>
-  <version>1.13.2</version>
-  <type>jar</type>
-    <scope>provided</scope>
+  <version>1.14</version>
+  <scope>provided</scope>
 </dependency>
 </dependencies>
   <build>

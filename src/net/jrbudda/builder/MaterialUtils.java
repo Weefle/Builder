@@ -7,8 +7,8 @@ import org.anhcraft.spaciouslib.utils.CommonUtils;
 import org.anhcraft.spaciouslib.utils.Group;
 import org.anhcraft.spaciouslib.utils.InitialisationValidator;
 import org.anhcraft.spaciouslib.utils.ReflectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.StringUtils;
 import org.bukkit.material.MaterialData;
 
 public class MaterialUtils {

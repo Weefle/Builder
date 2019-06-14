@@ -25,10 +25,6 @@ import net.citizensnpcs.Citizens;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.trait.trait.Owner;
-import net.minecraft.server.v1_13_R2.Block;
-import net.minecraft.server.v1_13_R2.BlockPosition;
-import net.minecraft.server.v1_13_R2.Item;
-import net.minecraft.server.v1_13_R2.World;
 
 
 public class Builder extends JavaPlugin {
@@ -255,24 +251,6 @@ public class Builder extends JavaPlugin {
 
 			this.reloadMyConfig();
 			player.sendMessage(ChatColor.GREEN + "reloaded Builder/config.yml");
-			return true;
-		}
-		else if (args[0].equalsIgnoreCase("testmats")) {
-			StringBuilder sb = new StringBuilder();
-
-			for (int j = 1; j < 137; j++) {
-				sb.append( j+":"+ Util.getLocalItemName(j) +" > " +  (Block.getByCombinedId(j).getBlock().getDropType(Block.getByCombinedId(j).getBlock().getBlockData(), (World) Bukkit.getWorlds().get(0), BlockPosition.ZERO,-10000)) +":" + Util.getLocalItemName(Item.getId(Block.getByCombinedId(j).getBlock().getDropType(Block.getByCombinedId(j).getBlock().getBlockData(), (World) Bukkit.getWorlds().get(0), BlockPosition.ZERO,-10000).getItem()))+ "\n" );
-			}
-
-			java.io.File f = new File("mats.txt");
-			java.io.FileWriter fw;
-			try {
-				fw = new java.io.FileWriter(f);					
-				fw.write(sb.toString());
-				fw.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 			return true;
 		}
 		else if (args[0].equalsIgnoreCase("list")) {
