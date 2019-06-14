@@ -24,7 +24,6 @@ import net.aufdemrand.denizen.objects.dNPC;
 import net.citizensnpcs.Citizens;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
-import net.citizensnpcs.api.trait.TraitInfo;
 import net.citizensnpcs.api.trait.trait.Owner;
 import net.minecraft.server.v1_12_R1.Block;
 import net.minecraft.server.v1_12_R1.Item;
@@ -33,6 +32,7 @@ import net.minecraft.server.v1_12_R1.Item;
 public class Builder extends JavaPlugin {
 
 	public boolean debug = false;
+	public static Builder instance;
 
 	public String schematicsFolder = "";
 	private List<Integer> MarkMats = new ArrayList<Integer>();
@@ -58,16 +58,13 @@ public class Builder extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-		
-		do {
-			//nothing
-		}while(getServer().getPluginManager().getPlugin("Citizens") == null || getServer().getPluginManager().getPlugin("Citizens").isEnabled() == false);
 
-		/*if(getServer().getPluginManager().getPlugin("Citizens") == null || getServer().getPluginManager().getPlugin("Citizens").isEnabled() == false) {
+		instance=this;
+		if(getServer().getPluginManager().getPlugin("Citizens") == null || getServer().getPluginManager().getPlugin("Citizens").isEnabled() == false) {
 			getLogger().log(Level.SEVERE, "Citizens 2.0 not found or not enabled");
 			getServer().getPluginManager().disablePlugin(this);	
 			return;
-		}	*/
+		}	
 		try {
 			setupDenizenHook();
 		} catch (ActivationException e) {
@@ -79,8 +76,7 @@ public class Builder extends JavaPlugin {
 
 
 		
-		CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(BuilderTrait.class).withName("builder"));
-		getServer().getPluginManager().registerEvents(new BuilderListener(this), this);
+		getServer().getPluginManager().registerEvents(new LoadEvent(), this);
 
 
 
