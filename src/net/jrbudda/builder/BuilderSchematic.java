@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -58,7 +59,7 @@ public class BuilderSchematic {
 		for (int tmpy = 0;tmpy< this.height();tmpy++){
 			for (int tmpx = 0;tmpx< this.width();tmpx++){
 				for (int tmpz = 0;tmpz< this.length();tmpz++){
-					if (this.Blocks[tmpx][tmpy][tmpz].getMat().getMaterial().getId() > 0) {
+					if (Bukkit.getUnsafe().toLegacy(this.Blocks[tmpx][tmpy][tmpz].getMat().getMaterial()).getId() > 0) {
 						ok = true;
 					}
 				}
@@ -108,8 +109,8 @@ public class BuilderSchematic {
 				if (excavate && pending.isEmpty()==false) exair.add(new EmptyBuildBlock(b.X, b.Y, b.Z));
 
 				if(!excavate){	//wont be nuffing there, lol
-					if (pending.getType().getId() == b.getMat().getMaterial().getId() ) continue;
-					else if (pending.getType().getId() == 3 && b.getMat().getMaterial().getId() ==2)  continue;
+					if (Bukkit.getUnsafe().toLegacy(pending.getType()).getId() == Bukkit.getUnsafe().toLegacy(b.getMat().getMaterial()).getId() ) continue;
+					else if (Bukkit.getUnsafe().toLegacy(pending.getType()).getId() == 3 && Bukkit.getUnsafe().toLegacy(b.getMat().getMaterial()).getId() ==2)  continue;
 
 				}
 

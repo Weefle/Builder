@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.material.MaterialData;
 
@@ -252,7 +253,7 @@ public class Util {
 			EmptyBuildBlock b = Q.poll();
 
 			if (b==null) break;
-			int item = b.getMat().getMaterial().getId();
+			int item = Bukkit.getUnsafe().toLegacy(b.getMat().getMaterial()).getId();
 			double addamt = 1;
 
 			
@@ -380,8 +381,8 @@ public class Util {
 
 	static boolean canStand(org.bukkit.block.Block base){
 		org.bukkit.block.Block below = base.getRelative(0, -1, 0);
-		if(!below.isEmpty() && Block.getByCombinedId(below.getType().getId()).getBlock().getBlockData().getMaterial().isSolid()){
-			if(base.isEmpty() || Block.getByCombinedId(base.getType().getId()).getBlock().getBlockData().getMaterial().isSolid()==false){
+		if(!below.isEmpty() && Block.getByCombinedId(Bukkit.getUnsafe().toLegacy(below.getType()).getId()).getBlock().getBlockData().getMaterial().isSolid()){
+			if(base.isEmpty() || Block.getByCombinedId(Bukkit.getUnsafe().toLegacy(base.getType()).getId()).getBlock().getBlockData().getMaterial().isSolid()==false){
 				return true;
 			}
 		}

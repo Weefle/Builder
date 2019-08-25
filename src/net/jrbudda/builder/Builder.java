@@ -752,7 +752,7 @@ public class Builder extends JavaPlugin {
 			}
 		}
 
-		if (M!=null) item=M.getId();
+		if (M!=null) item=Bukkit.getUnsafe().toLegacy(M).getId();
 
 
 		return item;

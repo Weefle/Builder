@@ -1,6 +1,7 @@
 package net.jrbudda.builder;
 
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -44,9 +45,9 @@ public class BuilderListener implements Listener {
 		Player player = event.getClicker();
 		ItemStack is = player.getItemInHand();
 
-		String itemname = Util.getLocalItemName(is.getType().getId());
+		String itemname = Util.getLocalItemName(Bukkit.getUnsafe().toLegacy(is.getType()).getId());
 
-		if(is.getType().getId() == 0){
+		if(Bukkit.getUnsafe().toLegacy(is.getType()).getId() == 0){
 			//list what is still needed
 			player.sendMessage(plugin.format(plugin.SupplyListMessage, inst.getNPC(),inst.schematic,(CommandSender) player,null,"0"));
 			player.sendMessage(Util.printList(inst.NeededMaterials));	
@@ -59,7 +60,7 @@ public class BuilderListener implements Listener {
 				return;
 			}
 
-			int item = is.getType().getId();
+			int item = Bukkit.getUnsafe().toLegacy(is.getType()).getId();
 
 			//do i need it?
 			int needed = (int) (inst.NeededMaterials.containsKey(item) ? inst.NeededMaterials.get(item) : 0);

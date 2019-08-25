@@ -456,9 +456,9 @@ public class BuilderTrait extends Trait implements Toggleable {
 				ok= true;
 
 				//dont replace grass with dirt, and vice versa.
-				if (pending.getType().getId() == 3 && next.getMat().getMaterial().getId() ==2) ok = false;
-				if (pending.getType().getId() == 2 && next.getMat().getMaterial().getId() ==3) ok = false;
-				if (pending.getType().getId() == next.getMat().getMaterial().getId()) ok =false;
+				if (Bukkit.getUnsafe().toLegacy(pending.getType()).getId() == 3 && Bukkit.getUnsafe().toLegacy(next.getMat().getMaterial()).getId() ==2) ok = false;
+				if (Bukkit.getUnsafe().toLegacy(pending.getType()).getId() == 2 && Bukkit.getUnsafe().toLegacy(next.getMat().getMaterial()).getId() ==3) ok = false;
+				if (Bukkit.getUnsafe().toLegacy(pending.getType()).getId() == Bukkit.getUnsafe().toLegacy(next.getMat().getMaterial()).getId()) ok =false;
 				//dont bother putting a block that already exists.
 
 			} while(!ok);
