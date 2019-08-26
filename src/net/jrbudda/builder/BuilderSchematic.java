@@ -109,8 +109,10 @@ public class BuilderSchematic {
 				if (excavate && pending.isEmpty()==false) exair.add(new EmptyBuildBlock(b.X, b.Y, b.Z));
 
 				if(!excavate){	//wont be nuffing there, lol
-					if (Bukkit.getUnsafe().toLegacy(pending.getType()).getId() == Bukkit.getUnsafe().toLegacy(b.getMat().getMaterial()).getId() ) continue;
-					else if (Bukkit.getUnsafe().toLegacy(pending.getType()).getId() == 3 && Bukkit.getUnsafe().toLegacy(b.getMat().getMaterial()).getId() ==2)  continue;
+					
+					/*if (Bukkit.getUnsafe().toLegacy(pending.getType()).getId() == Bukkit.getUnsafe().toLegacy(b.getMat().getMaterial()).getId() ) continue;
+					else if (Bukkit.getUnsafe().toLegacy(pending.getType()).getId() == 3 && Bukkit.getUnsafe().toLegacy(b.getMat().getMaterial()).getId() ==2)  continue;*/
+
 
 				}
 

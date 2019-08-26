@@ -278,9 +278,9 @@ public class Builder extends JavaPlugin {
 				if (listOfFiles[i1].isFile()) 
 				{
 					String   file = listOfFiles[i1].getName();
-					if (file.endsWith(".schematic") )
+					if (file.endsWith(".schem") )
 					{
-						out.append(file.replace(".schematic",", "));
+						out.append(file.replace(".schem",", "));
 					}
 				}
 			}
@@ -289,9 +289,9 @@ public class Builder extends JavaPlugin {
 			if (listOfFiles[i1].isFile()) 
 			{
 				String   file = listOfFiles[i1].getName();
-				if (file.endsWith(".schematic") )
+				if (file.endsWith(".schem") )
 				{
-					out.append(file.replace(".schematic","."));
+					out.append(file.replace(".schem","."));
 				}
 			}
 
@@ -366,7 +366,7 @@ public class Builder extends JavaPlugin {
 			inst.oncomplete = null;
 			inst.onStart = null;
 			inst.ContinueLoc =null;
-			inst.IgnoreAir = false;
+			inst.IgnoreAir = true;
 			inst.IgnoreLiquid = false;
 			inst.Excavate = false;
 			inst.GroupByLayer = true;
@@ -415,7 +415,7 @@ public class Builder extends JavaPlugin {
 					inst.GroupByLayer =false;
 				}
 				else if (args[a].equalsIgnoreCase("ignoreair")){
-					inst.IgnoreAir = true;
+					inst.IgnoreAir = false;
 				}
 				else if (args[a].equalsIgnoreCase("ignoreliquid")){
 					inst.IgnoreLiquid = true;
@@ -443,7 +443,8 @@ public class Builder extends JavaPlugin {
 			}
 
 			if (!inst.TryBuild(player)){
-				if(!inst.Silent)player.sendMessage(ChatColor.RED + ThisNPC.getName() + " could not build. Already building or no schematic loaded?.");   // Talk to the player.
+				inst.CancelBuild();
+				if(!inst.Silent)player.sendMessage(ChatColor.RED + ThisNPC.getName() + " could not build. Already building or no schematic loaded?"); // Talk to the player.
 			}
 			return true;
 
@@ -599,10 +600,10 @@ public class Builder extends JavaPlugin {
 				}
 				arg = arg.trim();
 
-				arg = arg.replace(".schematic", "");
+				arg = arg.replace(".schem", "");
 				String msg = "";
 				File dir= new File(schematicsFolder);
-				File file = new File(dir,arg+".schematic");
+				File file = new File(dir,arg+".schem");
 
 				//see if this has already been loaded to another builder
 				for (NPC npc : CitizensAPI.getNPCRegistry()) {
@@ -719,8 +720,8 @@ public class Builder extends JavaPlugin {
 			if(inst.Origin ==null)player.sendMessage(ChatColor.GREEN + "Origin: " +ChatColor.WHITE +"My Location");
 			else player.sendMessage(ChatColor.GREEN + "Origin: " +ChatColor.WHITE + " x:" + inst.Origin.getBlockX()+ " y:" + inst.Origin.getBlockY()+ " z:" + inst.Origin.getBlockZ());
 
-			player.sendMessage(ChatColor.GREEN + "Status: " + ChatColor.WHITE + inst.State + " §aTimeout:§f " + inst.MoveTimeout);
-			player.sendMessage(ChatColor.GREEN + "Require Mats: " + ChatColor.WHITE + inst.RequireMaterials + " §aHold Items:§f " + inst.HoldItems);
+			player.sendMessage(ChatColor.GREEN + "Status: " + ChatColor.WHITE + inst.State + " ï¿½aTimeout:ï¿½f " + inst.MoveTimeout);
+			player.sendMessage(ChatColor.GREEN + "Require Mats: " + ChatColor.WHITE + inst.RequireMaterials + " ï¿½aHold Items:ï¿½f " + inst.HoldItems);
 
 			if (inst.State == net.jrbudda.builder.BuilderTrait.BuilderState.building){
 				player.sendMessage(ChatColor.BLUE + "Location: " +ChatColor.WHITE + " x:" + inst.ContinueLoc.getBlockX()+ " y:" + inst.ContinueLoc.getBlockY()+ " z:" + inst.ContinueLoc.getBlockZ());

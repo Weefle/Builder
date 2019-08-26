@@ -45,7 +45,7 @@ class DataBuildBlock extends EmptyBuildBlock{
 
 	
 	public static MaterialData convertMaterial(int ID, byte Data) {
-	    for(Material i : EnumSet.allOf(Material.class)) if(Bukkit.getUnsafe().toLegacy(i).getId() == ID) return new MaterialData(Bukkit.getUnsafe().fromLegacy(new MaterialData(i, Data)));
+	    for(Material i : EnumSet.allOf(Material.class)) if(Bukkit.getUnsafe().toLegacy(i).getId() == ID) return new MaterialData(Bukkit.getUnsafe().fromLegacy(new MaterialData(Bukkit.getUnsafe().toLegacy(i), Data)));
 	    return new MaterialData(Material.AIR);
 	}
 	

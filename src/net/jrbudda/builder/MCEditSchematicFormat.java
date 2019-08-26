@@ -61,7 +61,7 @@ public class MCEditSchematicFormat {
 
 
 		NBTTagCompound palette = nbt.getCompound("Palette");
-		
+		//Bukkit.getLogger().info(palette.getKeys().toString());
 		palette.getKeys().forEach(rawState -> {
 			int id = palette.getInt(rawState);
 			BlockData blockData2 = Bukkit.createBlockData(rawState);
