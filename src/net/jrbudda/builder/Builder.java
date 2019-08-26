@@ -300,9 +300,9 @@ public class Builder extends JavaPlugin {
 				if (listOfFiles[i1].isFile()) 
 				{
 					String   file = listOfFiles[i1].getName();
-					if (file.endsWith(".schematic") )
+					if (file.endsWith(".schem") )
 					{
-						out.append(file.replace(".schematic",", "));
+						out.append(file.replace(".schem",", "));
 					}
 				}
 			}
@@ -311,9 +311,9 @@ public class Builder extends JavaPlugin {
 			if (listOfFiles[i1].isFile()) 
 			{
 				String   file = listOfFiles[i1].getName();
-				if (file.endsWith(".schematic") )
+				if (file.endsWith(".schem") )
 				{
-					out.append(file.replace(".schematic","."));
+					out.append(file.replace(".schem","."));
 				}
 			}
 
@@ -621,10 +621,10 @@ public class Builder extends JavaPlugin {
 				}
 				arg = arg.trim();
 
-				arg = arg.replace(".schematic", "");
+				arg = arg.replace(".schem", "");
 				String msg = "";
 				File dir= new File(schematicsFolder);
-				File file = new File(dir,arg+".schematic");
+				File file = new File(dir,arg+".schem");
 
 				//see if this has already been loaded to another builder
 				for (NPC npc : CitizensAPI.getNPCRegistry()) {

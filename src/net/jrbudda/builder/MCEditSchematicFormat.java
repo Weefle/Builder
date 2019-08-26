@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import net.minecraft.server.v1_13_R2.NBTCompressedStreamTools;
@@ -61,7 +62,6 @@ public class MCEditSchematicFormat {
 
 
 		NBTTagCompound palette = nbt.getCompound("Palette");
-		
 		palette.getKeys().forEach(rawState -> {
 			int id = palette.getInt(rawState);
 			BlockData blockData2 = Bukkit.createBlockData(rawState);
