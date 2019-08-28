@@ -20,7 +20,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import net.aufdemrand.denizen.objects.dNPC;
+import com.denizenscript.denizen.npc.traits.AssignmentTrait;
+import com.denizenscript.denizen.objects.NPCTag;
+
 import net.citizensnpcs.Citizens;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
@@ -145,8 +147,8 @@ public class Builder extends JavaPlugin {
 	public void DenizenAction(NPC npc, String action){
 		if(denizen!=null){
 			try {
-				if(npc.hasTrait(net.aufdemrand.denizen.npc.traits.AssignmentTrait.class)){
-					dNPC dnpc = dNPC.mirrorCitizensNPC(npc);
+				if(npc.hasTrait(AssignmentTrait.class)){
+					NPCTag dnpc = NPCTag.mirrorCitizensNPC(npc);
 					dnpc.action(action, null);			
 				}
 			} catch (Exception e) {
