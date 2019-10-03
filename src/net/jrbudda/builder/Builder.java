@@ -33,6 +33,10 @@ import net.minecraft.server.v1_12_R1.Item;
 public class Builder extends JavaPlugin {
 
 	public boolean debug = false;
+	
+	public int task;
+	
+	public static Builder instance;
 
 	public String schematicsFolder = "";
 	private List<Integer> MarkMats = new ArrayList<Integer>();
@@ -58,12 +62,30 @@ public class Builder extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		
+		instance = this;
 
-		if(!getServer().getPluginManager().isPluginEnabled("Citizens")) {
+		
+		
+		task = Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+			
+			@Override
+			public void run() {
+				while(!getServer().getPluginManager().isPluginEnabled("Citizens")) {
+					//do nothing
+				}
+				CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(BuilderTrait.class).withName("builder"));
+				getServer().getPluginManager().registerEvents(new BuilderListener(instance), instance);
+				Bukkit.getScheduler().cancelTask(task);
+				
+			}
+		}, 0L, 1L);
+		
+		/*if(!getServer().getPluginManager().isPluginEnabled("Citizens")) {
 			getLogger().log(Level.SEVERE, "Citizens 2.0 not found or not enabled");
 			getServer().getPluginManager().disablePlugin(this);	
 			return;
-		}	
+		}	*/
 		try {
 			setupDenizenHook();
 		} catch (ActivationException e) {
@@ -72,11 +94,6 @@ public class Builder extends JavaPlugin {
 
 		if (denizen != null)	getLogger().log(Level.INFO,"Builder registered sucessfully with Denizen");
 		else getLogger().log(Level.INFO,"Builder could not register with Denizen");
-
-
-		
-		CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(BuilderTrait.class).withName("builder"));
-		getServer().getPluginManager().registerEvents(new BuilderListener(this), this);
 
 
 
