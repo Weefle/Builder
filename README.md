@@ -1,2 +1,2 @@
 # Builder
-Builder for Citizens2
+Let NPCs build your schematic structures with Citizens2
