@@ -25,22 +25,20 @@ import net.citizensnpcs.api.jnbt.ShortTag;
 import net.citizensnpcs.api.jnbt.StringTag;
 import net.citizensnpcs.api.jnbt.Tag;
 import net.jrbudda.builder.Builder.supplymap;
-import net.minecraft.server.v1_13_R2.Block;
-import net.minecraft.server.v1_13_R2.BlockPosition;
-import net.minecraft.server.v1_13_R2.Item;
-import net.minecraft.server.v1_13_R2.NBTBase;
-import net.minecraft.server.v1_13_R2.NBTTagByte;
-import net.minecraft.server.v1_13_R2.NBTTagByteArray;
-import net.minecraft.server.v1_13_R2.NBTTagCompound;
-import net.minecraft.server.v1_13_R2.NBTTagDouble;
-import net.minecraft.server.v1_13_R2.NBTTagFloat;
-import net.minecraft.server.v1_13_R2.NBTTagInt;
-import net.minecraft.server.v1_13_R2.NBTTagIntArray;
-import net.minecraft.server.v1_13_R2.NBTTagList;
-import net.minecraft.server.v1_13_R2.NBTTagLong;
-import net.minecraft.server.v1_13_R2.NBTTagShort;
-import net.minecraft.server.v1_13_R2.NBTTagString;
-import net.minecraft.server.v1_13_R2.World;
+import net.minecraft.server.v1_14_R1.Block;
+import net.minecraft.server.v1_14_R1.Item;
+import net.minecraft.server.v1_14_R1.NBTBase;
+import net.minecraft.server.v1_14_R1.NBTTagByte;
+import net.minecraft.server.v1_14_R1.NBTTagByteArray;
+import net.minecraft.server.v1_14_R1.NBTTagCompound;
+import net.minecraft.server.v1_14_R1.NBTTagDouble;
+import net.minecraft.server.v1_14_R1.NBTTagFloat;
+import net.minecraft.server.v1_14_R1.NBTTagInt;
+import net.minecraft.server.v1_14_R1.NBTTagIntArray;
+import net.minecraft.server.v1_14_R1.NBTTagList;
+import net.minecraft.server.v1_14_R1.NBTTagLong;
+import net.minecraft.server.v1_14_R1.NBTTagShort;
+import net.minecraft.server.v1_14_R1.NBTTagString;
 
 
 public class Util {
@@ -255,7 +253,7 @@ public class Util {
 			EmptyBuildBlock b = Q.poll();
 
 			if (b==null) break;
-			int item = b.getMat().getItemType().getId();
+			int item = Bukkit.getUnsafe().toLegacy(b.getMat().getMaterial()).getId();
 			double addamt = 1;
 
 			
@@ -266,7 +264,7 @@ public class Util {
 			}		
 			else{
 				
-				item =(Integer) (Block.getByCombinedId(item) !=null ? Item.getId(Block.getByCombinedId(item).getBlock().getDropType(Block.getByCombinedId(item).getBlock().getBlockData(), (World) Bukkit.getWorlds().get(0), BlockPosition.ZERO,-10000).getItem()) : item);
+				
 			}
 			
 			/*if (RequireUnobtainable){
@@ -383,8 +381,8 @@ public class Util {
 
 	static boolean canStand(org.bukkit.block.Block base){
 		org.bukkit.block.Block below = base.getRelative(0, -1, 0);
-		if(!below.isEmpty() && Block.getByCombinedId(below.getType().getId()).getBlock().getBlockData().getMaterial().isSolid()){
-			if(base.isEmpty() || Block.getByCombinedId(base.getType().getId()).getBlock().getBlockData().getMaterial().isSolid()==false){
+		if(!below.isEmpty() && Block.getByCombinedId(Bukkit.getUnsafe().toLegacy(below.getType()).getId()).getBlock().getBlockData().getMaterial().isSolid()){
+			if(base.isEmpty() || Block.getByCombinedId(Bukkit.getUnsafe().toLegacy(base.getType()).getId()).getBlock().getBlockData().getMaterial().isSolid()==false){
 				return true;
 			}
 		}

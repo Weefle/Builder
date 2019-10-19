@@ -20,15 +20,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import net.aufdemrand.denizen.objects.dNPC;
+import com.denizenscript.denizen.npc.traits.AssignmentTrait;
+import com.denizenscript.denizen.objects.NPCTag;
+
 import net.citizensnpcs.Citizens;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.trait.trait.Owner;
-import net.minecraft.server.v1_13_R2.Block;
-import net.minecraft.server.v1_13_R2.BlockPosition;
-import net.minecraft.server.v1_13_R2.Item;
-import net.minecraft.server.v1_13_R2.World;
 
 
 public class Builder extends JavaPlugin {
@@ -149,8 +147,8 @@ public class Builder extends JavaPlugin {
 	public void DenizenAction(NPC npc, String action){
 		if(denizen!=null){
 			try {
-				if(npc.hasTrait(net.aufdemrand.denizen.npc.traits.AssignmentTrait.class)){
-					dNPC dnpc = dNPC.mirrorCitizensNPC(npc);
+				if(npc.hasTrait(AssignmentTrait.class)){
+					NPCTag dnpc = NPCTag.mirrorCitizensNPC(npc);
 					dnpc.action(action, null);			
 				}
 			} catch (Exception e) {
@@ -257,24 +255,6 @@ public class Builder extends JavaPlugin {
 			player.sendMessage(ChatColor.GREEN + "reloaded Builder/config.yml");
 			return true;
 		}
-		else if (args[0].equalsIgnoreCase("testmats")) {
-			StringBuilder sb = new StringBuilder();
-
-			for (int j = 1; j < 137; j++) {
-				sb.append( j+":"+ Util.getLocalItemName(j) +" > " +  (Block.getByCombinedId(j).getBlock().getDropType(Block.getByCombinedId(j).getBlock().getBlockData(), (World) Bukkit.getWorlds().get(0), BlockPosition.ZERO,-10000)) +":" + Util.getLocalItemName(Item.getId(Block.getByCombinedId(j).getBlock().getDropType(Block.getByCombinedId(j).getBlock().getBlockData(), (World) Bukkit.getWorlds().get(0), BlockPosition.ZERO,-10000).getItem()))+ "\n" );
-			}
-
-			java.io.File f = new File("mats.txt");
-			java.io.FileWriter fw;
-			try {
-				fw = new java.io.FileWriter(f);					
-				fw.write(sb.toString());
-				fw.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			return true;
-		}
 		else if (args[0].equalsIgnoreCase("list")) {
 			if(!player.hasPermission("builder.list")) {
 				player.sendMessage(ChatColor.RED + "You do not have permissions for that command.");
@@ -300,9 +280,9 @@ public class Builder extends JavaPlugin {
 				if (listOfFiles[i1].isFile()) 
 				{
 					String   file = listOfFiles[i1].getName();
-					if (file.endsWith(".schematic") )
+					if (file.endsWith(".schem") )
 					{
-						out.append(file.replace(".schematic",", "));
+						out.append(file.replace(".schem",", "));
 					}
 				}
 			}
@@ -311,9 +291,9 @@ public class Builder extends JavaPlugin {
 			if (listOfFiles[i1].isFile()) 
 			{
 				String   file = listOfFiles[i1].getName();
-				if (file.endsWith(".schematic") )
+				if (file.endsWith(".schem") )
 				{
-					out.append(file.replace(".schematic","."));
+					out.append(file.replace(".schem","."));
 				}
 			}
 
@@ -388,7 +368,7 @@ public class Builder extends JavaPlugin {
 			inst.oncomplete = null;
 			inst.onStart = null;
 			inst.ContinueLoc =null;
-			inst.IgnoreAir = false;
+			inst.IgnoreAir = true;
 			inst.IgnoreLiquid = false;
 			inst.Excavate = false;
 			inst.GroupByLayer = true;
@@ -437,7 +417,7 @@ public class Builder extends JavaPlugin {
 					inst.GroupByLayer =false;
 				}
 				else if (args[a].equalsIgnoreCase("ignoreair")){
-					inst.IgnoreAir = true;
+					inst.IgnoreAir = false;
 				}
 				else if (args[a].equalsIgnoreCase("ignoreliquid")){
 					inst.IgnoreLiquid = true;
@@ -465,7 +445,8 @@ public class Builder extends JavaPlugin {
 			}
 
 			if (!inst.TryBuild(player)){
-				if(!inst.Silent)player.sendMessage(ChatColor.RED + ThisNPC.getName() + " could not build. Already building or no schematic loaded?.");   // Talk to the player.
+				inst.CancelBuild();
+				if(!inst.Silent)player.sendMessage(ChatColor.RED + ThisNPC.getName() + " could not build. Already building or no schematic loaded?"); // Talk to the player.
 			}
 			return true;
 
@@ -621,10 +602,10 @@ public class Builder extends JavaPlugin {
 				}
 				arg = arg.trim();
 
-				arg = arg.replace(".schematic", "");
+				arg = arg.replace(".schem", "");
 				String msg = "";
 				File dir= new File(schematicsFolder);
-				File file = new File(dir,arg+".schematic");
+				File file = new File(dir,arg+".schem");
 
 				//see if this has already been loaded to another builder
 				for (NPC npc : CitizensAPI.getNPCRegistry()) {
@@ -639,7 +620,8 @@ public class Builder extends JavaPlugin {
 				//load it from file if not found.
 				if(inst.schematic==null);
 				try {
-					inst.schematic = MCEditSchematicFormat.load(dir, arg);
+					MCEditSchematicFormat format = new MCEditSchematicFormat();
+					inst.schematic = format.load(dir, arg);
 				} catch (Exception e) {
 					msg = ChatColor.YELLOW +  e.getMessage();   // Talk to the player.
 					inst.schematic = null;
@@ -740,8 +722,8 @@ public class Builder extends JavaPlugin {
 			if(inst.Origin ==null)player.sendMessage(ChatColor.GREEN + "Origin: " +ChatColor.WHITE +"My Location");
 			else player.sendMessage(ChatColor.GREEN + "Origin: " +ChatColor.WHITE + " x:" + inst.Origin.getBlockX()+ " y:" + inst.Origin.getBlockY()+ " z:" + inst.Origin.getBlockZ());
 
-			player.sendMessage(ChatColor.GREEN + "Status: " + ChatColor.WHITE + inst.State + " §aTimeout:§f " + inst.MoveTimeout);
-			player.sendMessage(ChatColor.GREEN + "Require Mats: " + ChatColor.WHITE + inst.RequireMaterials + " §aHold Items:§f " + inst.HoldItems);
+			player.sendMessage(ChatColor.GREEN + "Status: " + ChatColor.WHITE + inst.State + " ï¿½aTimeout:ï¿½f " + inst.MoveTimeout);
+			player.sendMessage(ChatColor.GREEN + "Require Mats: " + ChatColor.WHITE + inst.RequireMaterials + " ï¿½aHold Items:ï¿½f " + inst.HoldItems);
 
 			if (inst.State == net.jrbudda.builder.BuilderTrait.BuilderState.building){
 				player.sendMessage(ChatColor.BLUE + "Location: " +ChatColor.WHITE + " x:" + inst.ContinueLoc.getBlockX()+ " y:" + inst.ContinueLoc.getBlockY()+ " z:" + inst.ContinueLoc.getBlockZ());
@@ -773,7 +755,7 @@ public class Builder extends JavaPlugin {
 			}
 		}
 
-		if (M!=null) item=M.getId();
+		if (M!=null) item=Bukkit.getUnsafe().toLegacy(M).getId();
 
 
 		return item;
@@ -815,8 +797,8 @@ public class Builder extends JavaPlugin {
 	}
 	
 	public void loadSchematic() {
-		if(!(new File(this.getDataFolder() + File.separator + "schematics/house.schematic").exists()))
-		saveResource("schematics/house.schematic", false);
+		if(!(new File(this.getDataFolder() + File.separator + "schematics/house.schem").exists()))
+		saveResource("schematics/house.schem", false);
 	}
 
 

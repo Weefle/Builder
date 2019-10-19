@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -11,7 +12,6 @@ import org.bukkit.util.Vector;
 
 
 public class BuilderSchematic {
-	//todo... redo.. multi-dimensional arrays have a lot of overhead apparently.
 	public EmptyBuildBlock[][][] Blocks = new EmptyBuildBlock[1][1][1]; 
 
 	public String Name = ""; 
@@ -30,10 +30,10 @@ public class BuilderSchematic {
 		dlength = k;
 		Queue<EmptyBuildBlock> Q = new LinkedList<EmptyBuildBlock>();
 		Q.clear();
-		Q.add(new DataBuildBlock(0,0,0,mat,(byte) 0));
-		Q.add(new DataBuildBlock((int) (i-1),0,0,mat,(byte) 0));
-		Q.add(new DataBuildBlock(0,0,(int)k-1,mat,(byte) 0));
-		Q.add(new DataBuildBlock((int)i-1,0,(int)k-1,mat,(byte) 0));
+		Q.add(new DataBuildBlock(0,0,0, DataBuildBlock.convertMaterial(mat, (byte)0).getItemType().createBlockData()));
+		Q.add(new DataBuildBlock((int) (i-1),0,0,DataBuildBlock.convertMaterial(mat, (byte)0).getItemType().createBlockData()));
+		Q.add(new DataBuildBlock(0,0,(int)k-1,DataBuildBlock.convertMaterial(mat, (byte)0).getItemType().createBlockData()));
+		Q.add(new DataBuildBlock((int)i-1,0,(int)k-1,DataBuildBlock.convertMaterial(mat, (byte)0).getItemType().createBlockData()));
 		return Q;
 	}
 
@@ -59,7 +59,7 @@ public class BuilderSchematic {
 		for (int tmpy = 0;tmpy< this.height();tmpy++){
 			for (int tmpx = 0;tmpx< this.width();tmpx++){
 				for (int tmpz = 0;tmpz< this.length();tmpz++){
-					if (this.Blocks[tmpx][tmpy][tmpz].getMat().getItemType().getId() > 0) {
+					if (Bukkit.getUnsafe().toLegacy(this.Blocks[tmpx][tmpy][tmpz].getMat().getMaterial()).getId() > 0) {
 						ok = true;
 					}
 				}
@@ -109,13 +109,14 @@ public class BuilderSchematic {
 				if (excavate && pending.isEmpty()==false) exair.add(new EmptyBuildBlock(b.X, b.Y, b.Z));
 
 				if(!excavate){	//wont be nuffing there, lol
-					if (pending.getType().getId() == b.getMat().getItemType().getId() && pending.getData() == b.getData() ) continue;
-					else if (pending.getType().getId() == 3 && b.getMat().getItemType().getId() ==2)  continue;
-					else if (pending.getType().getId() == 2 && b.getMat().getItemType().getId() ==3) continue;
+					
+					/*if (Bukkit.getUnsafe().toLegacy(pending.getType()).getId() == Bukkit.getUnsafe().toLegacy(b.getMat().getMaterial()).getId() ) continue;
+					else if (Bukkit.getUnsafe().toLegacy(pending.getType()).getId() == 3 && Bukkit.getUnsafe().toLegacy(b.getMat().getMaterial()).getId() ==2)  continue;*/
+
 
 				}
 
-				org.bukkit.Material m = b.getMat().getItemType();
+				org.bukkit.Material m = b.getMat().getMaterial();
 
 				if (m==null) continue;
 
@@ -145,7 +146,7 @@ public class BuilderSchematic {
 					redstone.add(b);
 					break;
 				case FURNACE:case LEGACY_BURNING_FURNACE:	case BREWING_STAND: case CHEST: case JUKEBOX: case CAULDRON: case LEGACY_WOOD_DOOR: case LEGACY_WOODEN_DOOR: case IRON_DOOR: case LEGACY_TRAP_DOOR: case LEGACY_ENCHANTMENT_TABLE:
-				case DISPENSER: case LEGACY_WORKBENCH: case LEGACY_SOIL: case LEGACY_SIGN_POST: case WALL_SIGN: case LADDER: case LEGACY_FENCE: case LEGACY_FENCE_GATE: case LEGACY_IRON_FENCE: case LEGACY_THIN_GLASS: case LEGACY_NETHER_FENCE: case DRAGON_EGG: case LEGACY_BED_BLOCK: case GLASS:
+				case DISPENSER: case LEGACY_WORKBENCH: case LEGACY_SOIL: case LEGACY_SIGN_POST: case LEGACY_WALL_SIGN: case LADDER: case LEGACY_FENCE: case LEGACY_FENCE_GATE: case LEGACY_IRON_FENCE: case LEGACY_THIN_GLASS: case LEGACY_NETHER_FENCE: case DRAGON_EGG: case LEGACY_BED_BLOCK: case GLASS:
 				case LEGACY_BIRCH_WOOD_STAIRS: case LEGACY_JUNGLE_WOOD_STAIRS: case LEGACY_WOOD_STAIRS: case LEGACY_SPRUCE_WOOD_STAIRS: case QUARTZ_STAIRS: case TRAPPED_CHEST: case ANVIL: case FLOWER_POT: 
 					//3rd
 					furniture.add(b);

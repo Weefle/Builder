@@ -11,19 +11,13 @@ import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockState;
 import org.bukkit.block.data.BlockData;
-import org.bukkit.block.data.Directional;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.material.Banner;
-import org.bukkit.material.Bed;
-import org.bukkit.material.Door;
 import org.bukkit.material.MaterialData;
-import org.bukkit.material.Stairs;
-import org.bukkit.material.Step;
 import org.dynmap.DynmapCommonAPI;
 
 import net.citizensnpcs.api.exception.NPCLoadException;
@@ -103,7 +97,8 @@ public class BuilderTrait extends Trait implements Toggleable {
 		if (SchematicName !=null){
 			File dir= new File(plugin.schematicsFolder);
 			try {
-				schematic = MCEditSchematicFormat.load(dir, SchematicName);
+				MCEditSchematicFormat format = new MCEditSchematicFormat();
+				schematic = format.load(dir, SchematicName);
 				if (schematic == null) {
 					plugin.getLogger().log(java.util.logging.Level.WARNING,"Error loading schematic " + SchematicName +" for " + npc.getName());
 				}
@@ -461,9 +456,9 @@ public class BuilderTrait extends Trait implements Toggleable {
 				ok= true;
 
 				//dont replace grass with dirt, and vice versa.
-				if (pending.getType().getId() == 3 && next.getMat().getItemType().getId() ==2) ok = false;
-				if (pending.getType().getId() == 2 && next.getMat().getItemType().getId() ==3) ok = false;
-				if (pending.getType().getId() == next.getMat().getItemType().getId() && pending.getData() == next.getData()) ok =false;
+				/*if (Bukkit.getUnsafe().toLegacy(pending.getType()).getId() == 3 && Bukkit.getUnsafe().toLegacy(next.getMat().getMaterial()).getId() ==2) ok = false;
+				if (Bukkit.getUnsafe().toLegacy(pending.getType()).getId() == 2 && Bukkit.getUnsafe().toLegacy(next.getMat().getMaterial()).getId() ==3) ok = false;
+				if (Bukkit.getUnsafe().toLegacy(pending.getType()).getId() == Bukkit.getUnsafe().toLegacy(next.getMat().getMaterial()).getId()) ok =false;*/
 				//dont bother putting a block that already exists.
 
 			} while(!ok);
@@ -482,13 +477,12 @@ public class BuilderTrait extends Trait implements Toggleable {
 		if(npc.isSpawned()){
 
 			if((npc.getEntity() instanceof org.bukkit.entity.HumanEntity || npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems){
-				int m = next.getMat().getItemType().getId();
-				if (m <=0) m = 278;
+
 
 				/*if((npc.getEntity() instanceof org.bukkit.entity.HumanEntity) && this.HoldItems)((org.bukkit.entity.HumanEntity) npc.getEntity()).getInventory().setItemInHand(new ItemStack(m));	
 				else if((npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems)	((org.bukkit.entity.Enderman) npc.getEntity()).setCarriedMaterial(new MaterialData(m));*/
-				if((npc.getEntity() instanceof org.bukkit.entity.HumanEntity) && this.HoldItems)((org.bukkit.entity.HumanEntity) npc.getEntity()).getInventory().setItemInHand(new ItemStack(DataBuildBlock.convertMaterial(m, (byte)0).getItemType()));	
-				else if((npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems)	((org.bukkit.entity.Enderman) npc.getEntity()).setCarriedMaterial(DataBuildBlock.convertMaterial(m, (byte)0));
+				if((npc.getEntity() instanceof org.bukkit.entity.HumanEntity) && this.HoldItems)((org.bukkit.entity.HumanEntity) npc.getEntity()).getInventory().setItemInHand(new ItemStack(next.getMat().getMaterial()));	
+				else if((npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems)	((org.bukkit.entity.Enderman) npc.getEntity()).setCarriedMaterial(new MaterialData(next.getMat().getMaterial()));
 			}
 		}
 
@@ -573,8 +567,8 @@ public class BuilderTrait extends Trait implements Toggleable {
 
 		/*if((npc.getEntity() instanceof org.bukkit.entity.HumanEntity) && this.HoldItems)((org.bukkit.entity.HumanEntity) npc.getEntity()).getInventory().setItemInHand(new ItemStack(0));	
 		else if((npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems)	((org.bukkit.entity.Enderman) npc.getEntity()).setCarriedMaterial(new MaterialData(0));*/
-		if((npc.getEntity() instanceof org.bukkit.entity.HumanEntity) && this.HoldItems)((org.bukkit.entity.HumanEntity) npc.getEntity()).getInventory().setItemInHand(new ItemStack(DataBuildBlock.convertMaterial(0, (byte)0).getItemType()));	
-		else if((npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems)	((org.bukkit.entity.Enderman) npc.getEntity()).setCarriedMaterial(DataBuildBlock.convertMaterial(0, (byte)0));
+		if((npc.getEntity() instanceof org.bukkit.entity.HumanEntity) && this.HoldItems)((org.bukkit.entity.HumanEntity) npc.getEntity()).getInventory().setItemInHand(new ItemStack(Material.AIR));	
+		else if((npc.getEntity() instanceof org.bukkit.entity.Enderman) && this.HoldItems)	((org.bukkit.entity.Enderman) npc.getEntity()).setCarriedMaterial(new MaterialData(Material.AIR));
 
 		if (stop && plugin.getServer().getPluginManager().getPlugin("dynmap") != null){
 			if (plugin.getServer().getPluginManager().getPlugin("dynmap").isEnabled()) {
@@ -599,68 +593,18 @@ public class BuilderTrait extends Trait implements Toggleable {
 		if(pending != null && next != null) {
 
 			if(State==BuilderState.marking && !clearingMarks) {
-				_marks.add(new DataBuildBlock(pending.getX(), pending.getY(), pending.getZ(), pending.getType().getId(), pending.getData()));
+				_marks.add(new DataBuildBlock(pending.getX(), pending.getY(), pending.getZ(), pending.getBlockData()));
 			}
 		
-			BlockData bdata = DataBuildBlock.convertMaterial(next.getMat().getItemType().getId(), next.getData()).getItemType().createBlockData();
+			BlockData bdata = next.getMat();
 
-			if (bdata instanceof Directional) {
-	            Directional directional = (Directional) bdata;
-	            	
-	           if(next.getMat().getItemType().toString().contains("STAIRS")) {
-	            	BlockState bs = pending.getState();
-	                Stairs stairs = new Stairs(next.getMat().getItemType());
-	                stairs.setData(next.getData());
-	        		if(next.getData()>=4) {
-	                stairs.setInverted(true);
-	        		}
-	        		bs.setData(MaterialUtils.str2MaterialData(MaterialUtils.materialData2Str(stairs)));
-	                bs.update(true, true);
-	            }
-	           else if(next.getMat().getItemType().toString().contains("DOOR")) {
-	            	BlockState bs = pending.getState();
-	                Door door = new Door(next.getMat().getItemType());
-	                door.setData(next.getData());
-	                if(next.getData()>=8) {
-	                	door.setTopHalf(true);
-		        		}
-	        		bs.setData(MaterialUtils.str2MaterialData(MaterialUtils.materialData2Str(door)));
-	                bs.update(true, true);
-	            }else if(next.getMat().getItemType().toString().contains("BED")) {
-	            	BlockState bs = pending.getState();
-	                Bed bed = new Bed(next.getMat().getItemType());
-	                bed.setData(next.getData());
-	                if(next.getData()>=8) {
-	        		bed.setHeadOfBed(true);
-	                }
-	        		bs.setData(MaterialUtils.str2MaterialData(MaterialUtils.materialData2Str(bed)));
-	                bs.update(true, true);
-	            }
-	            
-	            else {
-	            	directional.setFacing(FaceResolver.resolveFace(next));
-		 	           pending.setBlockData(directional);
-	            }
-	            	 
-	            
-	     
-           
-	        }else if(next.getMat().getItemType().toString().contains("SLAB")) {
-            	BlockState bs = pending.getState();
-                Step step = new Step(next.getMat().getItemType());
-                step.setData(next.getData());
-                if(next.getData()>=8) {
-        		step.setInverted(true);
-                }
-        		bs.setData(MaterialUtils.str2MaterialData(MaterialUtils.materialData2Str(step)));
-                bs.update(true, true);
-            }else{
 	        	pending.setBlockData(bdata);
+	        	//Bukkit.getLogger().info("" + bdata);
 	     
 	        	
-	        }
 
-		/*	if (next instanceof TileBuildBlock){			
+
+			/*if (next instanceof TileBuildBlock){			
 				CraftWorld cw =(CraftWorld)pending.getWorld();			
 				CompoundTag nbt = new CompoundTag("", ((TileBuildBlock) next).tiles);
 				NBTTagCompound nmsnbt = (NBTTagCompound) Util.fromNative(nbt);
