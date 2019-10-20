@@ -1,6 +1,5 @@
 package net.jrbudda.builder;
 
-//import java.util.HashMap;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -33,7 +32,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Builder extends JavaPlugin {
 
-	public boolean debug = false;;
+	public boolean debug = false;
+	
+	public int task;
+	
+	public static Builder instance;
 
 	public String schematicsFolder = "";
 	private List<Integer> MarkMats = new ArrayList<Integer>();
@@ -59,12 +62,31 @@ public class Builder extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		
+		instance = this;
+		
+		task = Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+				while (!getServer().getPluginManager().isPluginEnabled("Citizens")) {
+					//do nothing
+				}
+				
+				CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(BuilderTrait.class).withName("builder"));
+				getServer().getPluginManager().registerEvents(new BuilderListener(instance), instance);
+				Bukkit.getScheduler().cancelTask(task);
+				
+			}
+		}, 0L, 1L);
 
-		if(getServer().getPluginManager().getPlugin("Citizens") == null || getServer().getPluginManager().getPlugin("Citizens").isEnabled() == false) {
+		/*if(getServer().getPluginManager().getPlugin("Citizens") == null || getServer().getPluginManager().getPlugin("Citizens").isEnabled() == false) {
 			getLogger().log(Level.SEVERE, "Citizens 2.0 not found or not enabled");
 			getServer().getPluginManager().disablePlugin(this);	
 			return;
-		}	
+		}	*/
 		try {
 			setupDenizenHook();
 		} catch (ActivationException e) {
@@ -73,10 +95,6 @@ public class Builder extends JavaPlugin {
 
 		if (denizen != null)	getLogger().log(Level.INFO,"Builder registered sucessfully with Denizen");
 		else getLogger().log(Level.INFO,"Builder could not register with Denizen");
-
-
-		CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(BuilderTrait.class).withName("builder"));
-		this.getServer().getPluginManager().registerEvents(new BuilderListener(this), this);
 
 
 
