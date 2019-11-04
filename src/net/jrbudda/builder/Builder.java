@@ -66,6 +66,18 @@ public class Builder extends JavaPlugin {
 	public void onEnable() {
 		
 		instance = this;
+		
+		try {
+			new Metrics(this);
+			getLogger().info("Metrics setup was successful");
+			new Updater(this, 55326);
+			getLogger().info("Updater setup was successful");
+		} catch (IOException e) {
+			getLogger().severe("Failed to setup Updater");
+			getLogger().severe("Verify the resource's link");
+			e.printStackTrace();
+		}
+
 
 		
 		
