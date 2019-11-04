@@ -24,6 +24,7 @@ import net.aufdemrand.denizen.objects.dNPC;
 import net.citizensnpcs.Citizens;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
+import net.citizensnpcs.api.trait.TraitInfo;
 import net.citizensnpcs.api.trait.trait.Owner;
 import net.minecraft.server.v1_13_R2.Block;
 import net.minecraft.server.v1_13_R2.BlockPosition;
@@ -34,6 +35,8 @@ import net.minecraft.server.v1_13_R2.World;
 public class Builder extends JavaPlugin {
 
 	public boolean debug = false;
+	
+	public int task;
 	
 	public static Builder instance;
 
@@ -58,30 +61,33 @@ public class Builder extends JavaPlugin {
 
 	public static java.util.HashMap<Integer, supplymap> SupplyMapping;
 
+
 	@Override
 	public void onEnable() {
 		
-		instance=this;
+		instance = this;
+
 		
-		if(getServer().getPluginManager().getPlugin("Citizens") != null || getServer().getPluginManager().getPlugin("Citizens").isEnabled() == true) {
-			getLogger().log(Level.INFO, "Citizens 2.0 is now enabled");
-		}else {
+		
+		task = Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+			
+			@Override
+			public void run() {
+				while(!getServer().getPluginManager().isPluginEnabled("Citizens")) {
+					//do nothing
+				}
+				CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(BuilderTrait.class).withName("builder"));
+				getServer().getPluginManager().registerEvents(new BuilderListener(instance), instance);
+				Bukkit.getScheduler().cancelTask(task);
+				
+			}
+		}, 0L, 1L);
+		
+		/*if(!getServer().getPluginManager().isPluginEnabled("Citizens")) {
 			getLogger().log(Level.SEVERE, "Citizens 2.0 not found or not enabled");
 			getServer().getPluginManager().disablePlugin(this);	
 			return;
-		}
-		try {
-			new Metrics(this);
-			getLogger().info("Metrics setup was successful");
-			new Updater(this, 55326);
-			getLogger().info("Updater setup was successful");
-		} catch (IOException e) {
-			getLogger().severe("Failed to setup Updater");
-			getLogger().severe("Verify the resource's link");
-			e.printStackTrace();
-		}
-
-			
+		}	*/
 		try {
 			setupDenizenHook();
 		} catch (ActivationException e) {
@@ -90,11 +96,10 @@ public class Builder extends JavaPlugin {
 
 		if (denizen != null)	getLogger().log(Level.INFO,"Builder registered sucessfully with Denizen");
 		else getLogger().log(Level.INFO,"Builder could not register with Denizen");
-		
-		getServer().getPluginManager().registerEvents(new TraitListener(), this);
-		
+
+
+
 		reloadMyConfig();
-		
 	}
 
 
