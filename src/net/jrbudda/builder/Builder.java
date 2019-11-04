@@ -2,6 +2,7 @@ package net.jrbudda.builder;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.rmi.activation.ActivationException;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +64,18 @@ public class Builder extends JavaPlugin {
 	public void onEnable() {
 		
 		instance = this;
+		
+		try {
+			new Metrics(this);
+			getLogger().info("Metrics setup was successful");
+			new Updater(this, 55326);
+			getLogger().info("Updater setup was successful");
+		} catch (IOException e) {
+			getLogger().severe("Failed to setup Updater");
+			getLogger().severe("Verify the resource's link");
+			e.printStackTrace();
+		}
+
 
 		
 		
