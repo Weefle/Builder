@@ -1,6 +1,6 @@
 package net.jrbudda.builder;
 
-import net.minecraft.server.v1_14_R1.LocaleLanguage;
+import net.minecraft.server.v1_15_R1.LocaleLanguage;
 
 public class LocaleI18n {
 
