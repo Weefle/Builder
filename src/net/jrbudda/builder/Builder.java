@@ -29,7 +29,6 @@ import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.trait.TraitInfo;
 import net.citizensnpcs.api.trait.trait.Owner;
 
-
 public class Builder extends JavaPlugin {
 
 	public boolean debug = false;
