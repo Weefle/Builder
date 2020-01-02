@@ -26,14 +26,13 @@ import com.denizenscript.denizen.objects.NPCTag;
 import net.citizensnpcs.Citizens;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
-import net.citizensnpcs.api.trait.TraitInfo;
 import net.citizensnpcs.api.trait.trait.Owner;
 
 public class Builder extends JavaPlugin {
 
 	public boolean debug = false;
 	
-	public int task;
+
 	
 	public static Builder instance;
 
@@ -78,25 +77,15 @@ public class Builder extends JavaPlugin {
 
 		
 		
-		task = Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-			
-			@Override
-			public void run() {
-				while(!getServer().getPluginManager().isPluginEnabled("Citizens")) {
-					//do nothing
-				}
-				CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(BuilderTrait.class).withName("builder"));
-				getServer().getPluginManager().registerEvents(new BuilderListener(instance), instance);
-				Bukkit.getScheduler().cancelTask(task);
-				
-			}
-		}, 0L, 1L);
 		
-		/*if(!getServer().getPluginManager().isPluginEnabled("Citizens")) {
+		if(getServer().getPluginManager().getPlugin("Citizens") != null || getServer().getPluginManager().getPlugin("Citizens").isEnabled() == true) {
+			getLogger().log(Level.INFO, "Citizens 2.0 is now enabled");
+		}else {
 			getLogger().log(Level.SEVERE, "Citizens 2.0 not found or not enabled");
 			getServer().getPluginManager().disablePlugin(this);	
 			return;
-		}	*/
+		}
+		
 		try {
 			setupDenizenHook();
 		} catch (ActivationException e) {
@@ -106,7 +95,7 @@ public class Builder extends JavaPlugin {
 		if (denizen != null)	getLogger().log(Level.INFO,"Builder registered sucessfully with Denizen");
 		else getLogger().log(Level.INFO,"Builder could not register with Denizen");
 
-
+		getServer().getPluginManager().registerEvents(new TraitListener(), this);
 
 		reloadMyConfig();
 	}
