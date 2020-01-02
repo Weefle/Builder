@@ -12,7 +12,7 @@ public class TraitListener implements Listener {
 	@EventHandler
 	public void onLoad(ServerLoadEvent e) {
 
-		CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(BuilderTrait.class).withName("constructor"));
+		CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(BuilderTrait.class).withName("builder"));
 	Builder.instance.getServer().getPluginManager().registerEvents(new BuilderListener(Builder.instance), Builder.instance);
 
 	}
