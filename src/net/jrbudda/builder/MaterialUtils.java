@@ -3,13 +3,14 @@ package net.jrbudda.builder;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.anhcraft.spaciouslib.utils.CommonUtils;
-import org.anhcraft.spaciouslib.utils.Group;
-import org.anhcraft.spaciouslib.utils.InitialisationValidator;
-import org.anhcraft.spaciouslib.utils.ReflectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.material.MaterialData;
+
+import net.jrbudda.builder.libs.utils.CommonUtils;
+import net.jrbudda.builder.libs.utils.Group;
+import net.jrbudda.builder.libs.utils.InitialisationValidator;
+import net.jrbudda.builder.libs.utils.ReflectionUtils;
 
 public class MaterialUtils {
     private static final InitialisationValidator validator = new InitialisationValidator();
