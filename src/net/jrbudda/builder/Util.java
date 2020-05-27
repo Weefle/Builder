@@ -11,34 +11,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.material.MaterialData;
 
-import net.citizensnpcs.api.jnbt.ByteArrayTag;
-import net.citizensnpcs.api.jnbt.ByteTag;
-import net.citizensnpcs.api.jnbt.CompoundTag;
-import net.citizensnpcs.api.jnbt.DoubleTag;
-import net.citizensnpcs.api.jnbt.EndTag;
-import net.citizensnpcs.api.jnbt.FloatTag;
-import net.citizensnpcs.api.jnbt.IntArrayTag;
-import net.citizensnpcs.api.jnbt.IntTag;
-import net.citizensnpcs.api.jnbt.ListTag;
-import net.citizensnpcs.api.jnbt.LongTag;
-import net.citizensnpcs.api.jnbt.ShortTag;
-import net.citizensnpcs.api.jnbt.StringTag;
-import net.citizensnpcs.api.jnbt.Tag;
-import net.jrbudda.builder.Builder.supplymap;
 import net.minecraft.server.v1_15_R1.Block;
 import net.minecraft.server.v1_15_R1.Item;
-import net.minecraft.server.v1_15_R1.NBTBase;
-import net.minecraft.server.v1_15_R1.NBTTagByte;
-import net.minecraft.server.v1_15_R1.NBTTagByteArray;
-import net.minecraft.server.v1_15_R1.NBTTagCompound;
-import net.minecraft.server.v1_15_R1.NBTTagDouble;
-import net.minecraft.server.v1_15_R1.NBTTagFloat;
-import net.minecraft.server.v1_15_R1.NBTTagInt;
-import net.minecraft.server.v1_15_R1.NBTTagIntArray;
-import net.minecraft.server.v1_15_R1.NBTTagList;
-import net.minecraft.server.v1_15_R1.NBTTagLong;
-import net.minecraft.server.v1_15_R1.NBTTagShort;
-import net.minecraft.server.v1_15_R1.NBTTagString;
 
 
 public class Util {
@@ -257,7 +231,7 @@ public class Util {
 			double addamt = 1;
 
 			
-			if(Builder.SupplyMapping.containsKey(item)){
+			/*if(Builder.SupplyMapping.containsKey(item)){
 				supplymap i = Builder.SupplyMapping.get(item);
 				item = i.require;
 				addamt = i.amount;				
@@ -265,7 +239,7 @@ public class Util {
 			else{
 				
 				
-			}
+			}*/
 			
 			/*if (RequireUnobtainable){
 				switch (item){

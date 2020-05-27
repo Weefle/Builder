@@ -43,19 +43,19 @@ public class Builder extends JavaPlugin {
 	public String  CancelMessage = "";
 	public String  MarkMessage = "";
 	public String SurveyMessage = "";
-	public String SupplyListMessage = "";
+	/*public String SupplyListMessage = "";
 	public String SupplyNeedMessage = "";
 	public String SupplyDontNeedMessage = "";
-	public String SupplyTakenMessage = "";
+	public String SupplyTakenMessage = "";*/
 	public String CollectingMessage = "";
 
-	public class supplymap{
+	/*public class supplymap{
 		public int original;
 		public int require;
 		public double amount =1;
 	}
 
-	public static java.util.HashMap<Integer, supplymap> SupplyMapping;
+	public static java.util.HashMap<Integer, supplymap> SupplyMapping;*/
 
 
 	@Override
@@ -244,8 +244,8 @@ public class Builder extends JavaPlugin {
 			player.sendMessage(ChatColor.GOLD + "  View the list of materials required to build the loaded scheamtic at the current origin with the specified options.");
 			player.sendMessage(ChatColor.GOLD + "/builder timeout [0.1 - 2000000.0]");
 			player.sendMessage(ChatColor.GOLD + "  Sets the maximum number of seconds between blocks");
-			player.sendMessage(ChatColor.GOLD + "/builder supply [true/false]");
-			player.sendMessage(ChatColor.GOLD + "  set whether the Builder needs to be supplied with materials before building.");	
+			/*player.sendMessage(ChatColor.GOLD + "/builder supply [true/false]");
+			player.sendMessage(ChatColor.GOLD + "  set whether the Builder needs to be supplied with materials before building.");	*/
 			player.sendMessage(ChatColor.GOLD + "/builder hold [true/false]");
 			player.sendMessage(ChatColor.GOLD + "  set whether the Builder holds blocks while building.");	
 			return true;
@@ -674,7 +674,7 @@ public class Builder extends JavaPlugin {
 
 			return true;
 		}
-		else if (args[0].equalsIgnoreCase("supply")) {
+		/*else if (args[0].equalsIgnoreCase("supply")) {
 			if(!player.hasPermission("builder.supply")) {
 				player.sendMessage(ChatColor.RED + "You do not have permissions for that command.");
 				return true;
@@ -693,7 +693,7 @@ public class Builder extends JavaPlugin {
 
 			}
 			return true;
-		}
+		}*/
 		else if (args[0].equalsIgnoreCase("hold")) {
 			if(!player.hasPermission("builder.hold")) {
 				player.sendMessage(ChatColor.RED + "You do not have permissions for that command.");
@@ -776,17 +776,17 @@ public class Builder extends JavaPlugin {
 		CollectingMessage =  getConfig().getString("DefaultTexts.BuildCollecting","");
 		MarkMessage = getConfig().getString("DefaultTexts.Mark","");
 		SurveyMessage = getConfig().getString("DefaultTexts.Survey","");
-		SupplyListMessage = getConfig().getString("DefaultTexts.Supply_List","");
+		/*SupplyListMessage = getConfig().getString("DefaultTexts.Supply_List","");
 		SupplyNeedMessage = getConfig().getString("DefaultTexts.Supply_Need_Item","");
 		SupplyDontNeedMessage = getConfig().getString("DefaultTexts.Supply_Dont_Need_Item","");
-		SupplyTakenMessage = getConfig().getString("DefaultTexts.Supply_Item_Taken","");
+		SupplyTakenMessage = getConfig().getString("DefaultTexts.Supply_Item_Taken","");*/
 		for (String M:getConfig().getStringList("MarkMaterials")){
 			if (getMat(M) > 0) this.MarkMats.add(getMat(M));
 		}
 
 		if (this.MarkMats.isEmpty()) this.MarkMats.add(Material.GLASS.getId());
 
-		loadSupplyMap();
+		//loadSupplyMap();
 		loadSchematic();
 
 	}
@@ -807,7 +807,7 @@ public class Builder extends JavaPlugin {
 	}
 
 
-	public void loadSupplyMap(){
+	/*public void loadSupplyMap(){
 
 		if(!(new File(this.getDataFolder() + File.separator + "supply.txt").exists()))
 			saveResource("supply.txt", false);
@@ -851,6 +851,6 @@ public class Builder extends JavaPlugin {
 
 		}
 
-	}
+	}*/
 
 }

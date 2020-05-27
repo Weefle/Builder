@@ -49,7 +49,7 @@ public class BuilderListener implements Listener {
 
 		if(Bukkit.getUnsafe().toLegacy(is.getType()).getId() == 0){
 			//list what is still needed
-			player.sendMessage(plugin.format(plugin.SupplyListMessage, inst.getNPC(),inst.schematic,(CommandSender) player,null,"0"));
+			//player.sendMessage(plugin.format(plugin.SupplyListMessage, inst.getNPC(),inst.schematic,(CommandSender) player,null,"0"));
 			player.sendMessage(Util.printList(inst.NeededMaterials));	
 
 		}
@@ -83,20 +83,20 @@ public class BuilderListener implements Listener {
 					//update needed
 
 					inst.NeededMaterials.put(item,(double) (needed  - taking));
-					player.sendMessage(plugin.format(plugin.SupplyTakenMessage, inst.getNPC(),inst.schematic, (CommandSender)player,itemname,taking + ""));
+					//player.sendMessage(plugin.format(plugin.SupplyTakenMessage, inst.getNPC(),inst.schematic, (CommandSender)player,itemname,taking + ""));
 
 					//check if can start
 					inst.TryBuild(null);
 
 				}
 				else{
-					player.sendMessage(plugin.format(plugin.SupplyNeedMessage, inst.getNPC(),inst.schematic,(CommandSender) player,itemname,needed+""));
+					//player.sendMessage(plugin.format(plugin.SupplyNeedMessage, inst.getNPC(),inst.schematic,(CommandSender) player,itemname,needed+""));
 					inst.Sessions.put(player,System.currentTimeMillis());
 				}	
 
 			}
 			else{
-				player.sendMessage(plugin.format(plugin.SupplyDontNeedMessage, inst.getNPC(),inst.schematic,(CommandSender) player,itemname,"0"));
+				//player.sendMessage(plugin.format(plugin.SupplyDontNeedMessage, inst.getNPC(),inst.schematic,(CommandSender) player,itemname,"0"));
 				//don't need it or already have it.
 			}
 
