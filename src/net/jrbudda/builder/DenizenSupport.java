@@ -1,8 +1,8 @@
 package net.jrbudda.builder;
 
-import com.denizenscript.denizen.BukkitScriptEntryData;
 import com.denizenscript.denizen.npc.traits.AssignmentTrait;
 import com.denizenscript.denizen.objects.NPCTag;
+import com.denizenscript.denizen.utilities.implementation.BukkitScriptEntryData;
 import com.denizenscript.denizencore.scripts.ScriptRegistry;
 import com.denizenscript.denizencore.scripts.containers.core.TaskScriptContainer;
 
@@ -14,7 +14,7 @@ public class DenizenSupport {
         NPCTag dnpc = NPCTag.mirrorCitizensNPC(npc);
         TaskScriptContainer task = ScriptRegistry.getScriptContainerAs(taskName, TaskScriptContainer.class);
         if (task != null) {
-            task.runTaskScript(new BukkitScriptEntryData(null, dnpc), null);
+            task.run(new BukkitScriptEntryData(null, dnpc), null);
             return true;
         }
         return false;

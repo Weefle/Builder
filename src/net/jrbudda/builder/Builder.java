@@ -373,7 +373,7 @@ public class Builder extends JavaPlugin {
 			inst.oncomplete = null;
 			inst.onStart = null;
 			inst.ContinueLoc =null;
-			inst.IgnoreAir = true;
+			inst.IgnoreAir = false;
 			inst.IgnoreLiquid = false;
 			inst.Excavate = false;
 			inst.GroupByLayer = true;
@@ -422,7 +422,7 @@ public class Builder extends JavaPlugin {
 					inst.GroupByLayer =false;
 				}
 				else if (args[a].equalsIgnoreCase("ignoreair")){
-					inst.IgnoreAir = false;
+					inst.IgnoreAir = true;
 				}
 				else if (args[a].equalsIgnoreCase("ignoreliquid")){
 					inst.IgnoreLiquid = true;
