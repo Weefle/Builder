@@ -445,9 +445,9 @@ public class Builder extends JavaPlugin {
 				}
 			}
 
-			if(inst.RequireMaterials){
+			/*if(inst.RequireMaterials){
 				inst.GetMatsList(inst.Excavate);
-			}
+			}*/
 
 			if (!inst.TryBuild(player)){
 				inst.CancelBuild();
@@ -491,7 +491,7 @@ public class Builder extends JavaPlugin {
 			}
 			else{
 				sender.sendMessage(format(SurveyMessage + (ex ? " (exvacate)" : ""), ThisNPC, inst.schematic, sender, null, "0"));
-				player.sendMessage(inst.GetMatsList(ex));   // Talk to the player.
+				//player.sendMessage(inst.GetMatsList(ex));   // Talk to the player.
 			}
 
 			return true;

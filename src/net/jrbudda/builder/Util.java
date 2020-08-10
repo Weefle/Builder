@@ -11,15 +11,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.material.MaterialData;
 
-import net.minecraft.server.v1_15_R1.Block;
-import net.minecraft.server.v1_15_R1.Item;
+import net.minecraft.server.v1_16_R1.Block;
+import net.minecraft.server.v1_16_R1.Item;
 
 
 public class Util {
 
 	static MaterialData Air = DataBuildBlock.convertMaterial(0, (byte)0);
 	
-	public static String printList(Map<Integer, Double> map){
+	/*public static String printList(Map<Integer, Double> map){
 		StringBuilder sb = new StringBuilder();
 
 		java.util.Iterator<Entry<Integer, Double>> it = map.entrySet().iterator();
@@ -32,10 +32,10 @@ public class Util {
 			}	
 		}
 		return sb.toString();
-	}
+	}*/
 
 
-	public static String getLocalItemName(int MatId){
+	/*public static String getLocalItemName(int MatId){
 		try {
 			if (MatId==0) return  "Air";
 			if(MatId < 256){
@@ -58,7 +58,7 @@ public class Util {
 		} catch (Exception e) {
 			return ((Integer)MatId).toString();
 		}
-	}
+	}*/
 
 	public static List<EmptyBuildBlock> spiralPrintLayer(int starty,int ylayers, EmptyBuildBlock[][][] a, boolean reverse)
 	{

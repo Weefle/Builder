@@ -36,7 +36,7 @@ public class BuilderListener implements Listener {
 	//		plugin.getLogger().info("place " + event.getPlayer() + event.isCancelled()  + " " + Util.getLocalName(event.getBlock().getTypeId()));
 	//	}
 
-	@EventHandler
+	/*@EventHandler
 	public void clickedme(net.citizensnpcs.api.event.NPCRightClickEvent event){
 		BuilderTrait inst = plugin.getBuilder(event.getNPC());
 		if (inst==null) return;
@@ -101,7 +101,7 @@ public class BuilderListener implements Listener {
 			}
 
 		}
-	}
+	}*/
 
 
 

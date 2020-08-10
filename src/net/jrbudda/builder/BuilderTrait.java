@@ -239,7 +239,7 @@ public class BuilderTrait extends Trait implements Toggleable {
 
 	Map<Player, Long> Sessions = new  HashMap<Player, Long>();
 
-	public String GetMatsList(boolean excavate){
+	/*public String GetMatsList(boolean excavate){
 		if(!npc.isSpawned()) return "";
 		if (schematic == null) return "";
 		if (this.State != BuilderState.idle) return ChatColor.RED + "Cannot survey while building";
@@ -259,7 +259,7 @@ public class BuilderTrait extends Trait implements Toggleable {
 
 		return Util.printList(NeededMaterials);
 
-	}
+	}*/
 
 	public boolean TryBuild(CommandSender sender){
 

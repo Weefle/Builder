@@ -10,8 +10,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.util.Vector;
 
-import net.minecraft.server.v1_15_R1.NBTCompressedStreamTools;
-import net.minecraft.server.v1_15_R1.NBTTagCompound;
+import net.minecraft.server.v1_16_R1.NBTCompressedStreamTools;
+import net.minecraft.server.v1_16_R1.NBTTagCompound;
 
 
 
