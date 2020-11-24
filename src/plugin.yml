@@ -1,6 +1,6 @@
 name: Builder
 authors: [jrbudda, Weefle]
-version: 6.0.0
+version: 6.0.1
 main: net.jrbudda.builder.Builder
 depends: [Citizens]
 softdepends: [Denizen, dynmap]

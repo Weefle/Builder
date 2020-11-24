@@ -1,18 +1,10 @@
 package net.jrbudda.builder;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Queue;
-
+import net.minecraft.server.v1_16_R3.Block;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.material.MaterialData;
 
-import net.minecraft.server.v1_16_R1.Block;
-import net.minecraft.server.v1_16_R1.Item;
+import java.util.*;
 
 
 public class Util {
@@ -62,6 +54,7 @@ public class Util {
 
 	public static List<EmptyBuildBlock> spiralPrintLayer(int starty,int ylayers, EmptyBuildBlock[][][] a, boolean reverse)
 	{
+
 		int i, k = 0, l = 0;
 
 		int m = a.length;
